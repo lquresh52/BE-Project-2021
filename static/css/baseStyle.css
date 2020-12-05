@@ -1,0 +1,102 @@
+:root{
+    --mainBackgroundColor: #edf5e1;
+    --lightGreen: #8ce7af;
+    --mediumGreen: #5cdb95;
+    --darkGreen: #379683;
+    --darkBlue: #05386b;
+}
+body{
+    background-color: var(--mainBackgroundColor);
+}
+.sidebar{
+    /* border: 2px solid red; */
+    height: 100vh;
+    /* position: fixed; */
+    top: 0px;
+    left: 0px;
+    
+}
+.myIcon{
+    color: var(--mediumGreen);
+    /* border: 2px solid red; */
+    font-size: 45px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+.nav-links{
+    /* border: 2px solid orange; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+    background-color: white;
+}
+.selected{
+    color: var(--darkBlue);
+}
+.mainContents{
+    /* border: 2px solid red; */
+}
+.myRow{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+
+/********/
+.myCard{
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    transition: 0.5s ease;
+}
+.myCard:hover{
+    transform: translateY(-5px);
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+}
+#submitBtn{
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+    /* background-color: var(--); */
+    transition: 0.5s ease;
+    outline: none;
+    box-shadow: none;
+    -webkit-appearance:none;
+  }
+
+/*
+  #faa92a
+  #74aeaf
+  #f2651f
+  #ff6b6b
+  #495dc6
+  #37c172
+  #f06594
+  #22b8cf
+*/  
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 105%;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
