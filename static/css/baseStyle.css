@@ -8,23 +8,58 @@
 body{
     background-color: var(--mainBackgroundColor);
 }
+.parentDiv{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.mytooltip{
+    position: absolute;
+    top: 0px;
+    left: 55px;
+    background-color: var(--darkBlue);
+    color: white;
+    width: 100px;
+    opacity: 0;
+    pointer-events: none;
+    height: 50px;
+    text-align: center;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 1px;
+    border-radius: 10px;
+    transform: translateX(-50px);
+    transition: .4s ease;
+    z-index: 15;
+}
+
+.parentDiv:hover .mytooltip{
+    transform: translateX(0px);
+    opacity: .8;
+}
+
 .sidebar{
     /* border: 2px solid red; */
     height: 100vh;
     /* position: fixed; */
     top: 0px;
     left: 0px;
+    z-index: 20;
     
 }
 .myIcon{
     color: var(--mediumGreen);
     /* border: 2px solid red; */
-    font-size: 45px;
+    font-size: 48px;
     width: 100%;
     display: flex;
     justify-content: center;
     cursor: pointer;
 }
+
+
 .nav-links{
     /* border: 2px solid orange; */
     display: flex;
@@ -38,10 +73,13 @@ body{
 }
 .mainContents{
     /* border: 2px solid red; */
+    margin-top: 100px !important;
 }
 .myRow{
     display: flex;
     justify-content: space-around;
+    margin-bottom: 50px;
+    
 }
 
 
@@ -75,28 +113,7 @@ body{
   #f06594
   #22b8cf
 */  
-.tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
-  }
-  
-  .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
-    top: -5px;
-    left: 105%;
-  }
-  
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
+
+  a{
+      text-decoration: none !important;
   }

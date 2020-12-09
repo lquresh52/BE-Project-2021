@@ -12,6 +12,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib import messages
 from studentDashboard.views import dashboard
+from adminPanel.views import teacherHome
 
 def index(request):
     return render(request, 'accounts/index.html')
@@ -88,13 +89,19 @@ def login_user(request):
         password=request.POST.get('password')
         try:
             user = User.objects.get(username=username)
+            print(user.userregistration.phone_number)
             user = authenticate(request,username=username,password=password)
             auth.login(request, user)
-            if user.is_authenticated:
-                print("Logged In")
-                return redirect(dashboard)
-            print("Allow user to login")
-
+            print("-------------------------------------")
+            print(user.userregistration.isTeacher)
+            if user.userregistration.isTeacher:
+                print("Teacher Logged In")
+                return redirect(teacherHome)
+            else:
+                if user.is_authenticated:
+                    print("Logged In")
+                    return redirect(dashboard)
+                    print("Allow user to login")
         except:
             print("User not exist")
             try:

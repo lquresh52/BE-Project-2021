@@ -225,6 +225,7 @@
                 </div>
               </div>
             </div>
+
             <div class="form-row">
               <div class="col-sm-12 field">
                 <input type="tel" class="form-control" id="validationPhone" name="phoneNumber" placeholder=" " pattern="[0-9]{10}" required>
@@ -237,6 +238,22 @@
                 </div>
               </div>
             </div>
+
+            {% comment %} College Name {% endcomment %}
+              <div class="form-row">
+              <div class="col-sm-12 field">
+                <input type="text" name="collegeName" class="form-control" id="validationEmail" placeholder=" " required>
+                <label for="validationEmail" class="label">College Name</label>
+                <div class="invalid-feedback">
+                  Please enter your College Name
+                </div>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+            </div>
+
+
             <div class="form-row">
               <div class="col-sm-12 field">
                 <input type="password" class="form-control" name="password" id="validationPassword" placeholder=" " required>
