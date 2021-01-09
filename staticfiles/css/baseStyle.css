@@ -1,0 +1,138 @@
+:root{
+    --mainBackgroundColor: #edf5e1;
+    --lightGreen: #8ce7af;
+    --mediumGreen: #5cdb95;
+    --darkGreen: #379683;
+    --darkBlue: #05386b;
+}
+body{
+    background-color: var(--mainBackgroundColor);
+    display: none;
+}
+.parentDiv{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.mytooltip{
+    position: absolute;
+    top: 0px;
+    left: 55px;
+    background-color: var(--darkBlue);
+    color: white;
+    width: 100px;
+    opacity: 0;
+    pointer-events: none;
+    height: 50px;
+    text-align: center;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 1px;
+    border-radius: 10px;
+    transform: translateX(-50px);
+    transition: .4s ease;
+    z-index: 15;
+}
+
+.parentDiv:hover .mytooltip{
+    transform: translateX(0px);
+    opacity: .8;
+}
+
+.sidebar{
+    /* border: 2px solid red; */
+    height: 100vh;
+    /* position: fixed; */
+    top: 0px;
+    left: 0px;
+    z-index: 20;
+    /* display: none !important; */
+    
+}
+
+#sticky-sidebar{
+    display: none;
+}
+.myIcon{
+    color: var(--mediumGreen);
+    /* border: 2px solid red; */
+    font-size: 48px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+
+.nav-links{
+    /* border: 2px solid orange; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+    background-color: white;
+}
+.selected{
+    color: var(--darkBlue);
+}
+.mainContents{
+    /* border: 2px solid red; */
+    margin-top: 60px;
+    left: -40px;
+}
+.myRow{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 50px;
+    
+}
+.myCreate{
+    border: 2px solid red;
+    background-color: chartreuse !important;
+}
+
+
+
+/********/
+.myCard{
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    transition: 0.5s ease;
+}
+.myCard:hover{
+    transform: translateY(-5px);
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+}
+#submitBtn{
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+    /* background-color: var(--); */
+    transition: 0.5s ease;
+    outline: none;
+    box-shadow: none;
+    -webkit-appearance:none;
+  }
+
+/*
+  #faa92a
+  #74aeaf
+  #f2651f
+  #ff6b6b
+  #495dc6
+  #37c172
+  #f06594
+  #22b8cf
+*/  
+
+  a{
+      text-decoration: none !important;
+  }
+
+
+
+@media screen and (max-width: 600px) {
+    .sidebar{
+        display: none !important;
+    }
+}
