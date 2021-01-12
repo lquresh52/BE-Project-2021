@@ -15,10 +15,18 @@
     height: 55%;
 }
 
+.waves{
+  /* border: 2px solid red; */
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  bottom: 0px;
+  transform: translateY(20px);
+}
+
 /* Navigation Bar */
 #myNavBar{
     background-color: var(--primaryGreen);
-    border-radius: 0px 0px 12px 12px;
     min-height: 10vh;
 }
 #hovering{
@@ -361,5 +369,16 @@ color {  100%, 0% {
   font-weight: 600; 
 }
 
+/*----------------  Mobile View ------------------------*/ 
+@media (max-width:991px){
+  .waves{
+    /* border: 2px solid red; */
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    bottom: 0px;
+    transform: translateY(0px);
+  }
+}
 
 
