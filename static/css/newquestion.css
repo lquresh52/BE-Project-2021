@@ -1,0 +1,330 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+:root{
+    --mainBackgroundColor: #edf5e1;
+    --lightGreen: #8ce7af;
+    --mediumGreen: #5cdb95;
+    --darkGreen: #379683;
+    --darkBlue: #05386b;
+}
+
+/*----------------  NAVBAR  ------------------------*/
+.myNavbar{
+    z-index:200; 
+    background-color: #05386b !important;
+}
+
+/*---------------- HAMBURGER ------------------------*/ 
+.ham {
+    cursor: pointer;
+    color: white;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-transition: -webkit-transform 300ms;
+    transition: -webkit-transform 300ms;
+    transition: transform 300ms;
+    transition: transform 300ms, -webkit-transform 300ms;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    z-index: 10;
+}
+  
+.hamRotate.active {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+  
+.hamRotate180.active {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+  
+.line {
+    fill: none;
+    -webkit-transition: stroke-dasharray 500ms, stroke-dashoffset 500ms;
+    transition: stroke-dasharray 500ms, stroke-dashoffset 500ms;
+    stroke: white;
+    stroke-width: 6;
+    stroke-linecap: round;
+}
+  
+.ham6 .top {
+    stroke-dasharray: 40 172;
+}
+  
+.ham6 .middle {
+    stroke-dasharray: 40 111;
+}
+  
+.ham6 .bottom {
+    stroke-dasharray: 40 172;
+}
+  
+.ham6.active .top {
+    stroke-dashoffset: -132px;
+}
+  
+.ham6.active .middle {
+    stroke-dashoffset: -71px;
+}
+  
+.ham6.active .bottom {
+    stroke-dashoffset: -132px;
+}
+
+
+/*----------------  SIDEBAR ------------------------*/  
+.sidebar{
+    height: 100vh;
+    width: 5vw;
+    position: fixed;
+    left: 0;
+    background-color: var(--mainBackgroundColor);
+    z-index: 7;
+}
+.myIcon{
+    color: var(--mediumGreen);
+    font-size: 48px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+.nav-icons{
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+}
+.selected{
+    color: var(--darkBlue);
+}
+.parentDiv{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.mytooltip{
+    position: absolute;
+    top: 0px;
+    left: 55px;
+    background-color: var(--darkBlue);
+    color: white;
+    width: 100px;
+    opacity: 0;
+    pointer-events: none;
+    height: 50px;
+    text-align: center;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 1px;
+    border-radius: 10px;
+    transform: translateX(-50px);
+    transition: .4s ease;
+    z-index: 15;
+}
+.parentDiv:hover .mytooltip{
+    transform: translateX(10px);
+    opacity: .8;
+}
+a{
+    text-decoration: none !important;
+}
+
+
+.mainscreen{
+    width: 100% !important;
+}
+
+/*----------------  CONTENTS ------------------------*/ 
+.contents{
+    padding-top: 5%;
+    padding-left: 5vw;
+    width: 100%;
+}
+
+
+/*----------------  Mobile View ------------------------*/ 
+@media (max-width:991px){
+    .sidebar{
+        height: 7vh;
+        width: 100vw;
+        bottom: 0px;
+        border-radius: 13px 13px 0px 0px;
+    }
+    .myIcon{
+        font-size: 35px;
+        width: 100%;
+    }
+    .nav-icons{
+        margin-top: 0vh;
+        flex-direction: row;
+    }
+    .mytooltip{
+        display: none;
+    }
+
+    .contents{
+        padding-bottom: 7vh;
+        padding-top: 7vh;
+        padding-left: 0vw;
+    }
+
+    .question{
+        padding: 10px !important;
+        height: auto !important;
+    }
+
+    .optionRow{
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+}
+
+
+/***********************************/
+.questionDiv{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.question{
+    height: 15vh;
+    box-shadow: 0 5px 10px rgb(189, 148, 229);
+    border-radius: 7px;
+    border: none;
+    outline: none;
+    padding: 40px;
+    font-size: 35px;
+    text-align: center;
+}
+input[type="file"]{
+    display: none;
+}
+.MainquestionImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #05386b;
+    font-size: larger;
+    border: 2px solid #05386b;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: .5s ease-in-out;
+}
+.MainquestionImage:hover{
+    background-color: #05386b;
+    color: white;
+}
+.options{
+    
+    box-shadow: 0 5px 5px rgb(189, 148, 229);
+    background-color: white;
+    border-radius: 7px;
+    height: 100px;
+}
+.optionRow{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.optionContents{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+input[type="text"]{
+    border: none;
+    outline: none;
+}
+
+.disabledImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:gray;
+    font-size: 35px;
+    /* border: 2px solid #05386b; */
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: .5s ease-in-out;
+}
+.questionImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #05386b;
+    font-size: 35px;
+    /* border: 2px solid #05386b; */
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: .5s ease-in-out;
+}
+.questionImage:hover{
+    background-color: #05386b;
+    color: white;
+}   
+.selecticon{
+    font-size: 40px;
+    cursor: pointer;
+    color: rgb(117, 115, 233);
+
+}
+.optionInput{
+    font-size: 28px;
+}
+
+
+.greenicon{
+    color: #00FF66;
+   
+}
+.cid{
+    box-shadow: 0 5px 5px #00FF66;
+}
+img{
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

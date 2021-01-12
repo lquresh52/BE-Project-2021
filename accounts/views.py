@@ -12,7 +12,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib import messages
 from studentDashboard.views import dashboard
-from adminPanel.views import teacherHome
+from adminPanel.views import teacherHome,questionForm,questionList
 
 def index(request):
     return render(request, 'accounts/index.html')
