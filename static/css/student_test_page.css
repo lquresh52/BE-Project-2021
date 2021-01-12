@@ -178,6 +178,7 @@ input[type="file"]{
     cursor: pointer;
     color: rgb(117, 115, 233);
     align-items: center;
+    position: fixed;
 }
 
 
@@ -191,7 +192,28 @@ input[type="file"]{
     border-radius: 7px;
     box-shadow: 0 5px 5px rgb(189, 148, 229);
     background-color: white;
+    overflow-wrap: break-word;
+    overflow-y: auto;
 }
+
+/* Scroll on option Input */
+.options::-webkit-scrollbar {
+    width: 8px;
+}
+
+.options::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+
+.options::-webkit-scrollbar-thumb {
+    background-color: var(--darkBlue);
+    /* outline: 1px solid slategrey; */
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/*   */
 .optionContents{
     height: 100%;
     display: flex;
@@ -215,9 +237,27 @@ img{
     display: none;
 }
 
+/* Timer */
+.timerDiv{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.Timer{
+    padding: 8px;
+    font-size: 25px;
+    /* font-weight: bold; */
+    background-color: var(--darkBlue);
+    border-radius: 7px;
+    color:white;
+}
+
+/* Side Question Bar */
+
 .questionBar{
     height: 100vh;
-    width: 15vw;
+    width: 14vw;
     position: fixed;
     top: 7vh;
     right: 0;
@@ -229,24 +269,51 @@ td{
     background-color: white;
     border-radius: 7px;
     box-shadow: 0 2px 2px rgb(189, 148, 229);
-    padding: 10px;
+    padding: 8px 14px 8px 14px;
     text-align: center;
     border-spacing: 15px; 
     font-weight: 600;  
 }
-
 
 .eachQuestion{
     background-color: #00FF66;
 }
 
 .questionTable{
-    margin-top: 30px;
+    /* background-color: ; */
+    box-shadow:  5px 5px 5px rgb(189, 148, 229),-0px -3px 4px rgb(189, 148, 229);
+    
+    /* border: 2px solid var(--darkBlue); */
+    border-radius: 7px;
+    margin-top: 25px;
+    height: 280px;
+    overflow: auto;
     display: flex;
     justify-content: space-evenly;
     border-collapse: separate;
     border-spacing: 10px;
 }
+.questionTable::-webkit-scrollbar {
+    width: 8px;
+}
+.questionTable::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+.questionTable::-webkit-scrollbar-thumb {
+    background-color: var(--darkBlue);
+    /* outline: 1px solid slategrey; */
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* For WebCam */
+
+#cameraDiv{
+    margin-top: 20px;
+    width: 100px   
+}
+
 
 /*----------------  Mobile View ------------------------*/ 
 @media (max-width:991px){
