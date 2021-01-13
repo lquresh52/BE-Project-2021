@@ -46,9 +46,8 @@
         </div>
     </nav>
 
-
-
     <div class="container-fluid mainscreen">
+
         <!-- Contents -->
         <div class="contents">
             <div class="col-12 pl-0 pr-0">
@@ -152,6 +151,7 @@
             </div>
         </div>
 
+
         <!-- Side Bar -->
         <div class="questionBar">
 
@@ -201,12 +201,12 @@
                 </table>
             </div>
 
-            <!-- Camera Div -->
             <div id="cameraDiv">
-                <video autoplay="true" id="videoElement">
+                <video width="250" height="250" autoplay="true" id="videoElement">
 
                 </video>
             </div>
+
         </div>
     </div>
 
@@ -236,7 +236,7 @@
         }
     </script> -->
 
-<!-- For WebCam -->
+    <!-- For WebCam -->
     <script>
         var video = document.querySelector("#videoElement");
 
@@ -245,7 +245,7 @@
                 .then(function (stream) {
                     video.srcObject = stream;
                 })
-                .catch(function (err0r) {
+                .catch(function (error) {
                     console.log("Something went wrong!");
                 });
         }
