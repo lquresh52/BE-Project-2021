@@ -1,0 +1,441 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+:root{
+    --mainBackgroundColor: #edf5e1;
+    --lightGreen: #8ce7af;
+    --mediumGreen: #5cdb95;
+    --darkGreen: #379683;
+    --darkBlue: #05386b;
+}
+
+/*----------------  NAVBAR  ------------------------*/
+.myNavbar{
+    z-index:200; 
+    background-color: #05386b !important;
+}
+
+::selection{
+    background: #4158d0;
+    color: #fff;
+}
+  
+input[type="submit"]:disabled {
+    background-color: red;
+}
+.customizedButton:disabled{
+    background-color: gray;
+}
+.form-row{
+    padding: 0px;
+    margin-bottom: 18px;
+}
+.form-row .field{
+    height: 50px;
+    width: 100%;
+    margin-top: 20px;
+    position: relative;
+}
+.form-row .field input{
+    height: 100%;
+    width: 100%;
+    outline: none;
+    -webkit-appearance:none;
+    box-shadow: none;
+    font-size: 17px;
+    padding-left: 20px;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+.form-row .field .label{
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    color: #999999;
+    font-weight: 400;
+    font-size: 17px;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+}
+.form-row .field input:focus ~ .label,
+.form-row .field input:not(:placeholder-shown) ~ .label{
+    top: 0%;
+    font-size: 16px;
+    color: #05386B;
+    background: #fff;
+    transform: translateY(-50%);
+}
+.form-row .field input:focus{
+    border-color: #41afd0;
+    -webkit-appearance:none;
+    box-shadow: none;
+}
+.form-row .field input:valid ~ .label{
+    color: green;
+}
+.form-row .field input:not(:placeholder-shown):invalid ~ .label{
+    color: red;
+}
+.form-row .field input:invalid:focus,.form-row .field input:valid:focus{
+    box-shadow: none;
+    -webkit-appearance:none;
+    outline: none !important;
+}
+#submitBtn{
+    width: 40%;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #4158d0;
+    transition: all 0.5s ease;
+    outline: none;
+    box-shadow: none;
+    -webkit-appearance:none;
+}
+#submitBtn:focus{
+    box-shadow: none;
+    outline: none;
+    -webkit-appearance:none;
+}
+.btn-container{
+    transition: all 0.5s ease;
+}
+
+/*Loading Animation*/
+.loader {
+    position: relative;
+    margin-left: 8px;
+    width: 30px;
+    transition: 0.5s ease;
+}
+.loader:before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+}
+.circular {
+    -webkit-animation: rotate 2s linear infinite;
+    animation: rotate 2s linear infinite;
+    height: 100%;
+    -webkit-transform-origin: center center;
+    -ms-transform-origin: center center;
+    transform-origin: center center;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.path {
+    stroke-dasharray: 1, 70;
+    stroke-dashoffset: 0;
+    -webkit-animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+    animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+    stroke-linecap: round;
+}
+@-webkit-keyframes 
+    rotate {  
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+@keyframes 
+    rotate {  
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+@-webkit-keyframes 
+    dash {  
+        0% {
+            stroke-dasharray: 1, 200;
+            stroke-dashoffset: 0;
+        }
+        50% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -35;
+        }
+        100% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -124;
+        } 
+    }
+@keyframes 
+    dash {  
+        0% {
+            stroke-dasharray: 1, 200;
+            stroke-dashoffset: 0;
+        }
+        50% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -35;
+        }
+        100% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -124;
+        }
+    }
+@-webkit-keyframes 
+    color {  
+        100%, 0% {
+            stroke: #ffffff;
+        }
+        40% {
+            stroke:#ffffff;
+        }
+        66% {
+            stroke:#ffffff;
+        }
+        80%, 90% {
+            stroke:#ffffff;
+        }
+    }
+@keyframes 
+    color {  
+        100%, 0% {
+            stroke:#ffffff;
+        }
+        40% {
+            stroke: #ffffff;
+        }
+        66% {
+            stroke:#ffffff;
+        }
+        80%, 90% {
+            stroke: #ffffff;
+        }
+    }
+    
+
+/*----------------  SIDEBAR ------------------------*/  
+.sidebar{
+    height: 100vh;
+    width: 5vw;
+    position: fixed;
+    left: 0;
+    background-color: var(--mainBackgroundColor);
+    z-index: 7;
+}
+.myIcon{
+    color: var(--mediumGreen);
+    font-size: 48px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+.nav-icons{
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+}
+.selected{
+    color: var(--darkBlue);
+}
+.parentDiv{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.mytooltip{
+    position: absolute;
+    top: 0px;
+    left: 55px;
+    background-color: var(--darkBlue);
+    color: white;
+    width: 100px;
+    opacity: 0;
+    pointer-events: none;
+    height: 50px;
+    text-align: center;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 1px;
+    border-radius: 10px;
+    transform: translateX(-50px);
+    transition: .4s ease;
+    z-index: 15;
+}
+.parentDiv:hover .mytooltip{
+    transform: translateX(10px);
+    opacity: .8;
+}
+a{
+    text-decoration: none !important;
+}
+
+
+.mainscreen{
+    width: 100% !important;
+}
+
+/*----------------  CONTENTS ------------------------*/ 
+.contents{
+    padding-top: 5%;
+    padding-left: 5vw;
+}
+
+/*----------------  CARDS ------------------------*/ 
+.myRow{
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: start;
+}
+.myCard{
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    transition: 0.3s ease;
+}
+.myCard:hover{
+    transform: translateY(-5px);
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+}
+.myCardHeader{
+    border-radius: 10px 10px 0px 0px !important;
+    background-color:  #FD1C03; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+}
+.myCardTitle{
+    color: white; 
+    font-weight: 700; 
+    font-size: 17px;
+}
+.myCardCounter{
+    color: white; 
+    font-weight: 700;
+}
+.grayTitle{
+    color: gray; 
+    font-weight: 500; 
+    font-size: 15px;
+}
+#cardBtn{
+    width: 40%;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #FD1C03;
+    transition: all 0.5s ease;
+    outline: none;
+    box-shadow: none;
+    -webkit-appearance:none;
+    border: none; 
+    color: white;
+}
+#cardBtn:focus{
+    box-shadow: none;
+    outline: none;
+    -webkit-appearance:none;
+}
+.grayBottomTitle{
+    color: gray; 
+    font-weight: 500; 
+    font-size: 13px;
+}
+
+
+/*---------------- HAMBURGER ------------------------*/ 
+.ham {
+    cursor: pointer;
+    color: white;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-transition: -webkit-transform 300ms;
+    transition: -webkit-transform 300ms;
+    transition: transform 300ms;
+    transition: transform 300ms, -webkit-transform 300ms;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    z-index: 10;
+}
+  
+.hamRotate.active {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+  
+.hamRotate180.active {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+  
+.line {
+    fill: none;
+    -webkit-transition: stroke-dasharray 500ms, stroke-dashoffset 500ms;
+    transition: stroke-dasharray 500ms, stroke-dashoffset 500ms;
+    stroke: white;
+    stroke-width: 6;
+    stroke-linecap: round;
+}
+  
+.ham6 .top {
+    stroke-dasharray: 40 172;
+}
+  
+.ham6 .middle {
+    stroke-dasharray: 40 111;
+}
+  
+.ham6 .bottom {
+    stroke-dasharray: 40 172;
+}
+  
+.ham6.active .top {
+    stroke-dashoffset: -132px;
+}
+  
+.ham6.active .middle {
+    stroke-dashoffset: -71px;
+}
+  
+.ham6.active .bottom {
+    stroke-dashoffset: -132px;
+}
+
+
+/*----------------  Mobile View ------------------------*/ 
+@media (max-width:991px){
+    .sidebar{
+        height: 7vh;
+        width: 100vw;
+        bottom: 0px;
+        border-radius: 13px 13px 0px 0px;
+    }
+    .myIcon{
+        font-size: 35px;
+        width: 100%;
+    }
+    .nav-icons{
+        margin-top: 0vh;
+        flex-direction: row;
+    }
+    .mytooltip{
+        display: none;
+    }
+
+    .contents{
+        padding-bottom: 7vh;
+        padding-top: 7vh;
+        padding-left: 0vw;
+    }
+}

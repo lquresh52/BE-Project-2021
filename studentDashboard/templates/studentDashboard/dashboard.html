@@ -1,486 +1,209 @@
-{% extends 'studentDashboard/base.html' %}
-{% block content %}
-<div class="mainContents col-11.5 offset-1" style="z-index: 7;">
-    
-    <div class="row myRow">
-        <div class="card myCard" style="width: 18rem; border-radius: 10px; border: none;">
-            <div class="card-header"
-                style="border-radius: 10px 10px 0px 0px; background-color:  #FF0099; display: flex; justify-content: space-between; align-items: center;">
-                <p class="card-title mb-0" style="color: white; font-weight: 700; font-size: 17px;">Starts In</p>
-                <p class="mb-0" style="color: white; font-weight: 700;">10:40:10</p>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Subject</p>
-                        <h5>Biology</h5>
-                    </div>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Teacher</title>
+
+    <!-- Google Scripts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Bootstrap Css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'css/studentDashboard.css' %}">
+
+    <!-- jQuery 1.7.2+ or Zepto.js 1.0+ -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top myNavbar">
+        <a class="navbar-brand" href="#">KJCOEMR</a>
+
+        <!-- Hamburger Icon With Animation -->
+        <button class="navbar-toggler" style="outline: none; border: none;" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <svg class="ham ham6" viewBox="0 0 100 100" width="50" onclick="this.classList.toggle('active')">
+                <path class="line top"
+                    d="m 30,33 h 40 c 13.100415,0 14.380204,31.80258 6.899646,33.421777 -24.612039,5.327373 9.016154,-52.337577 -12.75751,-30.563913 l -28.284272,28.284272" />
+                <path class="line middle"
+                    d="m 70,50 c 0,0 -32.213436,0 -40,0 -7.786564,0 -6.428571,-4.640244 -6.428571,-8.571429 0,-5.895471 6.073743,-11.783399 12.286435,-5.570707 6.212692,6.212692 28.284272,28.284272 28.284272,28.284272" />
+                <path class="line bottom"
+                    d="m 69.575405,67.073826 h -40 c -13.100415,0 -14.380204,-31.80258 -6.899646,-33.421777 24.612039,-5.327373 -9.016154,52.337577 12.75751,30.563913 l 28.284272,-28.284272" />
+            </svg>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto" id="inline-popups">
+                <li class="nav-item active mx-2">
+                    <a class="nav-link" href="#">About Us <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active mx-2">
+                    <a class="nav-link" data-toggle="modal" data-target="#adminModal" href="#">Admin Login <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active mx-2">
+                    <a class="nav-link" data-toggle="modal" data-target="#devModal" href="#">Developers <span
+                            class="sr-only">(current)</span></a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- Main Screen -->
+    <div class="container-fluid mainscreen">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="nav-icons ">
+
+                <div class="parentDiv">
+                    <span class="material-icons myIcon selected">
+                        analytics
+
+                    </span>
+                    <p class="mytooltip">Dashboard</p>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Type</p>
-                        <h5>Unit Test</h5>
-                    </div>
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Duration</p>
-                        <div style="display: flex;">
-                            <h5>60</h5>
-                            <h5 class="ml-1">min</h5>
-                        </div>
-                    </div>
+
+                <div class="parentDiv">
+                    <span class="material-icons myIcon">
+                        restore
+                    </span>
+                    <p class="mytooltip">History</p>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Total
-                            Questions</p>
-                        <h5>30</h5>
-                    </div>
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Marks</p>
-                        <div style="display: flex;">
-                            <h5>100</h5>
-                        </div>
-                    </div>
+                <div class="parentDiv">
+                    <span class="material-icons myIcon">
+                        leaderboard
+                    </span>
+                    <p class="mytooltip">Ranking</p>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Date</p>
-                        <h5>4 Dec, 2020</h5>
-                    </div>
-                </div>
-                <div class="btn-container d-flex justify-content-center p-2">
-                    <button id="submitBtn" type="submit" value="Register"
-                        class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center"
-                        style="background-color: #FF0099; border: none; color: white;">
-                        Start
-                        <div class="loader" style="display: none;" id="loader">
-                            <svg class="circular" viewBox="25 25 50 50">
-                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
-                                    stroke-miterlimit="10" />
-                            </svg>
-                        </div>
-                    </button>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 13px;"
-                            aria-readonly="true">Posted By D.C. Mehetre</p>
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 13px;"
-                            aria-readonly="true">2 Days Ago</p>
-                    </div>
-                </div>
+                <a href="{% url 'logout' %}" class="parentDiv">
+                    <span class="material-icons myIcon">
+                        logout
+                    </span>
+                    <p class="mytooltip">Logout</p>
+                </a>
             </div>
         </div>
-        <div class="card myCard" style="width: 18rem; border-radius: 10px; border: none;">
-            <div class="card-header"
-                style="border-radius: 10px 10px 0px 0px; background-color:  #FD1C03; display: flex; justify-content: space-between; align-items: center;">
-                <p class="card-title mb-0" style="color: white; font-weight: 700; font-size: 17px;">Starts In</p>
-                <p class="mb-0" style="color: white; font-weight: 700;">10:40:10</p>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Subject</p>
-                        <h5>Biology</h5>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Type</p>
-                        <h5>Unit Test</h5>
-                    </div>
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Duration</p>
-                        <div style="display: flex;">
-                            <h5>60</h5>
-                            <h5 class="ml-1">min</h5>
+
+        <!-- Contents -->
+        <div class="contents">
+            <div class="row col-12 myRow m-0">
+                {% for test in tests %}
+                <div class="col-12 col-sm-10 col-md-4 col-xl-3 ml-auto mr-auto">
+                    <div class="card myCard">
+                        <div class="card-header myCardHeader">
+                            <p class="card-title mb-0 myCardTitle">Starts In
+                            </p>
+                            <p class="mb-0 myCardCounter">10:40:10</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="card-title mb-0 grayTitle">
+                                        Subject</p>
+                                    <h5 class="mb-0">{{test.subjectName}}</h5>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-7 col-7">
+                                    <p class="card-title mb-0 grayTitle">Type
+                                    </p>
+                                    <h5 class="mb-0">Unit Test</h5>
+                                </div>
+                                <div class="col-md-5 col-5">
+                                    <p class="card-title mb-0 grayTitle">
+                                        Duration</p>
+                                    <div style="display: flex;">
+                                        <h5 class="mb-0">{{test.examDuration}}</h5>
+                                        <h5 class="ml-1 mb-0">min</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-7 col-7">
+                                    <p class="card-title mb-0 grayTitle">Total
+                                        Questions</p>
+                                    <h5 class="mb-0">{{test.totalQuestions}}</h5>
+                                </div>
+                                <div class="col-md-5 col-5">
+                                    <p class="card-title mb-0 grayTitle">Marks
+                                    </p>
+                                    <div style="display: flex;">
+                                        <h5 class="mb-0">{{test.totalMarks}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <p class="card-title mb-0 grayTitle">Date
+                                    </p>
+                                    <h5 class="mb-0">{{test.dateTime}}</h5>
+                                </div>
+                            </div>
+                            <div class="btn-container d-flex justify-content-center p-2 mt-2">
+                                <a href="{% url 'studentTest' test.subjectName %}">
+                                    <button id="cardBtn" type="submit" value="Register"
+                                        class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center"
+                                        onclick="OpenPopUpwindow(test.subjectName)">
+                                        Start
+                                        <div class="loader" style="display: none;" id="loader">
+                                            <svg class="circular" viewBox="25 25 50 50">
+                                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
+                                                    stroke-miterlimit="10" />
+                                            </svg>
+                                        </div>
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <p class="card-title mb-0 grayBottomTitle" aria-readonly="true">Posted By
+                                        {{test.user.first_name}} {{test.user.last_name}}</p>
+                                    <p class="card-title mb-0 grayBottomTitle" aria-readonly="true">2 Days Ago</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Total
-                            Questions</p>
-                        <h5>30</h5>
-                    </div>
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Marks</p>
-                        <div style="display: flex;">
-                            <h5>100</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Date</p>
-                        <h5>4 Dec, 2020</h5>
-                    </div>
-                </div>
-                <div class="btn-container d-flex justify-content-center p-2">
-                    <button id="submitBtn" type="submit" value="Register"
-                        class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center"
-                        style="background-color: #FD1C03; border: none; color: white;">
-                        Start
-                        <div class="loader" style="display: none;" id="loader">
-                            <svg class="circular" viewBox="25 25 50 50">
-                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
-                                    stroke-miterlimit="10" />
-                            </svg>
-                        </div>
-                    </button>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 13px;"
-                            aria-readonly="true">Posted By D.C. Mehetre</p>
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 13px;"
-                            aria-readonly="true">2 Days Ago</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card myCard" style="width: 18rem; border-radius: 10px; border: none;">
-            <div class="card-header"
-                style="border-radius: 10px 10px 0px 0px; background-color: #37c172; display: flex; justify-content: space-between; align-items: center;">
-                <p class="card-title mb-0" style="color: white; font-weight: 700; font-size: 17px;">Starts In</p>
-                <p class="mb-0" style="color: white; font-weight: 700;">10:40:10</p>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Subject</p>
-                        <h5>Biology</h5>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Type</p>
-                        <h5>Unit Test</h5>
-                    </div>
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Duration</p>
-                        <div style="display: flex;">
-                            <h5>60</h5>
-                            <h5 class="ml-1">min</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Total
-                            Questions</p>
-                        <h5>30</h5>
-                    </div>
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Marks</p>
-                        <div style="display: flex;">
-                            <h5>100</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Date</p>
-                        <h5>4 Dec, 2020</h5>
-                    </div>
-                </div>
-                <div class="btn-container d-flex justify-content-center p-2">
-                    <button id="submitBtn" type="submit" value="Register"
-                        class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center"
-                        style="background-color: #37c172; border: none; color: white;">
-                        Start
-                        <div class="loader" style="display: none;" id="loader">
-                            <svg class="circular" viewBox="25 25 50 50">
-                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
-                                    stroke-miterlimit="10" />
-                            </svg>
-                        </div>
-                    </button>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 13px;"
-                            aria-readonly="true">Posted By D.C. Mehetre</p>
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 13px;"
-                            aria-readonly="true">2 Days Ago</p>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
-        <div class="card myCard" style="width: 18rem; border-radius: 10px; border: none;">
-            <div class="card-header"
-                style="border-radius: 10px 10px 0px 0px; background-color:  #ff6b6b; display: flex; justify-content: space-between; align-items: center;">
-                <p class="card-title mb-0" style="color: white; font-weight: 700; font-size: 17px;">Starts In</p>
-                <p class="mb-0" style="color: white; font-weight: 700;">10:40:10</p>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Subject</p>
-                        <h5>Biology</h5>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Type</p>
-                        <h5>Unit Test</h5>
-                    </div>
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Duration</p>
-                        <div style="display: flex;">
-                            <h5>60</h5>
-                            <h5 class="ml-1">min</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Total
-                            Questions</p>
-                        <h5>30</h5>
-                    </div>
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Marks</p>
-                        <div style="display: flex;">
-                            <h5>100</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Date</p>
-                        <h5>4 Dec, 2020</h5>
-                    </div>
-                </div>
-                <div class="btn-container d-flex justify-content-center p-2">
-                    <button id="submitBtn" type="submit" value="Register"
-                        class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center"
-                        style="background-color: #ff6b6b; border: none; color: white;">
-                        Start
-                        <div class="loader" style="display: none;" id="loader">
-                            <svg class="circular" viewBox="25 25 50 50">
-                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
-                                    stroke-miterlimit="10" />
-                            </svg>
-                        </div>
-                    </button>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 13px;"
-                            aria-readonly="true">Posted By D.C. Mehetre</p>
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 13px;"
-                            aria-readonly="true">2 Days Ago</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
-    <div class="row mt-4 myRow">
-        <div class="card myCard" style="width: 18rem; border-radius: 10px; border: none;">
-            <div class="card-header"
-                style="border-radius: 10px 10px 0px 0px; background-color:  #22b8cf; display: flex; justify-content: space-between; align-items: center;">
-                <p class="card-title mb-0" style="color: white; font-weight: 700; font-size: 17px;">Starts In</p>
-                <p class="mb-0" style="color: white; font-weight: 700;">10:40:10</p>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Subject</p>
-                        <h5>Biology</h5>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Type</p>
-                        <h5>Unit Test</h5>
-                    </div>
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Duration</p>
-                        <div style="display: flex;">
-                            <h5>60</h5>
-                            <h5 class="ml-1">min</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Total
-                            Questions</p>
-                        <h5>30</h5>
-                    </div>
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Marks</p>
-                        <div style="display: flex;">
-                            <h5>100</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Date</p>
-                        <h5>4 Dec, 2020</h5>
-                    </div>
-                </div>
-                <div class="btn-container d-flex justify-content-center p-2">
-                    <button id="submitBtn" type="submit" value="Register"
-                        class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center"
-                        style="background-color: #22b8cf; border: none; color: white;">
-                        Start
-                        <div class="loader" style="display: none;" id="loader">
-                            <svg class="circular" viewBox="25 25 50 50">
-                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
-                                    stroke-miterlimit="10" />
-                            </svg>
-                        </div>
-                    </button>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 13px;"
-                            aria-readonly="true">Posted By D.C. Mehetre</p>
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 13px;"
-                            aria-readonly="true">2 Days Ago</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card myCard" style="width: 18rem; border-radius: 10px; border: none;">
-            <div class="card-header"
-                style="border-radius: 10px 10px 0px 0px; background-color: #495dc6; display: flex; justify-content: space-between; align-items: center;">
-                <p class="card-title mb-0" style="color: white; font-weight: 700; font-size: 17px;">Starts In</p>
-                <p class="mb-0" style="color: white; font-weight: 700;">10:40:10</p>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Subject</p>
-                        <h5>Biology</h5>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Type</p>
-                        <h5>Unit Test</h5>
-                    </div>
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Duration</p>
-                        <div style="display: flex;">
-                            <h5>60</h5>
-                            <h5 class="ml-1">min</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Total
-                            Questions</p>
-                        <h5>30</h5>
-                    </div>
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Marks</p>
-                        <div style="display: flex;">
-                            <h5>100</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Date</p>
-                        <h5>4 Dec, 2020</h5>
-                    </div>
-                </div>
-                <div class="btn-container d-flex justify-content-center p-2">
-                    <button id="submitBtn" type="submit" value="Register"
-                        class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center"
-                        style="background-color: #495dc6; border: none; color: white;">
-                        Start
-                        <div class="loader" style="display: none;" id="loader">
-                            <svg class="circular" viewBox="25 25 50 50">
-                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
-                                    stroke-miterlimit="10" />
-                            </svg>
-                        </div>
-                    </button>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 13px;"
-                            aria-readonly="true">Posted By D.C. Mehetre</p>
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 13px;"
-                            aria-readonly="true">2 Days Ago</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card myCard" style="width: 18rem; border-radius: 10px; border: none;">
-            <div class="card-header"
-                style="border-radius: 10px 10px 0px 0px; background-color: #74aeaf; display: flex; justify-content: space-between; align-items: center;">
-                <p class="card-title mb-0" style="color: white; font-weight: 700; font-size: 17px;">Starts In</p>
-                <p class="mb-0" style="color: white; font-weight: 700;">10:40:10</p>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Subject</p>
-                        <h5>Biology</h5>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Type</p>
-                        <h5>Unit Test</h5>
-                    </div>
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Duration</p>
-                        <div style="display: flex;">
-                            <h5>60</h5>
-                            <h5 class="ml-1">min</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Total
-                            Questions</p>
-                        <h5>30</h5>
-                    </div>
-                    <div class="col-6">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Marks</p>
-                        <div style="display: flex;">
-                            <h5>100</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Date</p>
-                        <h5>4 Dec, 2020</h5>
-                    </div>
-                </div>
-                <div class="btn-container d-flex justify-content-center p-2">
-                    <button id="submitBtn" type="submit" value="Register"
-                        class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center"
-                        style="background-color: #74aeaf; border: none; color: white;">
-                        Start
-                        <div class="loader" style="display: none;" id="loader">
-                            <svg class="circular" viewBox="25 25 50 50">
-                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
-                                    stroke-miterlimit="10" />
-                            </svg>
-                        </div>
-                    </button>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 13px;"
-                            aria-readonly="true">Posted By D.C. Mehetre</p>
-                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 13px;"
-                            aria-readonly="true">2 Days Ago</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock content %}
+
+
+    <!-- For Exam Page new pop up window -->
+    <script type="text/javascript">
+        function OpenPopUpwindow(urlName) {
+            var url = "{% url 'studentTest' "+urlName+" %}"
+            var windowFeatures = "fullscreen=yes, resizable=yes,scrollbars=yes , toolbar = no, menubar = no, location = no, directories = no , status = no";
+            console.log("URL: ",url);
+            window.open(url, 'popUpWindow', [windowFeatures]);
+        }
+    </script>
+
+
+
+    <!-- Bootstrap Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
