@@ -1,0 +1,105 @@
+from django.shortcuts import render,HttpResponse,redirect
+from django.contrib.auth.decorators import login_required
+from . models import Test,Question
+
+question_increment = 0
+
+@login_required(login_url='/login/')
+def teacherHome(request):
+    tests = Test.objects.filter(quiz_completed=True)
+    print(tests)
+    return render(request,'adminPanel/teacher_dashboard.html',{'tests':tests})
+
+@login_required(login_url='/login/')
+def questionForm(request):
+    user = request.user
+    print(user)
+    if request.method == 'POST':
+        subjectName = request.POST.get('subjectName')
+        totalQuestions = request.POST.get('totalQuestions')
+        totalMarks = request.POST.get('totalMarks')
+        dateTime = request.POST.get('dateTime')
+        examDuration = request.POST.get('examDuration')
+       # negativeMarksInput = request.POST.get('negativeMarksInput')
+        #print("Neg mark  ",negativeMarksInput)
+        quiz = Test(user=user,subjectName=subjectName,totalQuestions=totalQuestions,totalMarks=totalMarks,dateTime=dateTime,examDuration=examDuration)
+      #  print("Neg mark 2 ",negativeMarksInput)
+        quiz.save()
+        # tp = Test.objects.get(pk=quiz.pk)
+        print('*********************************************')
+        print(quiz)
+        print('----------------------------------------')
+        print(quiz.pk)
+        print('///////////  ',quiz.totalQuestions)
+
+        # return redirect(questionList,quiz=quiz,subjectName=subjectName,totalQuestions=totalQuestions,totalMarks=totalMarks,dateTime=dateTime,examDuration=examDuration,negativeMarksInput=0 if negativeMarksInput==''else negativeMarksInput)
+        return redirect(questionList,quiz_id=quiz.pk,totalQuestions=quiz.totalQuestions,curr_q_no=1)
+    else:
+        return render(request,'adminPanel/newquestion.html')
+
+# def questionList(request,quiz,subjectName,totalQuestions,totalMarks,dateTime,examDuration,negativeMarksInput):
+    # print(subjectName)
+@login_required(login_url='/login/')
+def questionList(request,quiz_id,totalQuestions,curr_q_no):
+    
+    quiz = Test.objects.get(id=quiz_id)
+    print(quiz)
+    if request.method == 'POST':
+
+        
+        question = request.POST.get('question')
+        if question == "":
+            question = request.POST.get('question_img')
+        
+        op1 = request.POST.get('option1')
+        if op1 == "":
+            op1 = request.POST.get('option1_img')
+
+        op2 = request.POST.get('option2')
+        if op2 == "":
+            op2 = request.POST.get('option2_img')
+
+        op3 = request.POST.get('option3')
+        if op3 == "":
+            op3 = request.POST.get('option3_img')
+
+        op4 = request.POST.get('option4')
+        if op4 == "":
+            op4 = request.POST.get('option4_img')
+
+        answer = request.POST.get('answer')
+
+        try:
+            get_que = Question.objects.get(subject=quiz,question_number=curr_q_no)
+            # print(get_que)
+            get_que.question = question
+            get_que.option1 = op1
+            get_que.option2 = op2
+            get_que.option3 = op3
+            get_que.option4 = op4
+            get_que.answer = answer
+            get_que.save()
+        except:
+            print("new question")
+            save_question = Question(subject = quiz,question_number=curr_q_no ,question=question, option1 = op1, option2 = op2, option3 = op3, option4 = op4, answer=answer)
+            save_question.save()
+
+        if curr_q_no != totalQuestions:
+            quiz.number_of_question_added = curr_q_no
+            quiz.save() 
+            next_q_no = curr_q_no + 1
+            return redirect(questionList, quiz_id=quiz.id, totalQuestions=quiz.totalQuestions, curr_q_no=next_q_no)
+        else:
+            quiz.number_of_question_added = curr_q_no
+            quiz.quiz_completed = True
+            quiz.save()
+            return redirect(teacherHome)
+            
+    else:
+        try:
+            get_que = Question.objects.get(subject=quiz,question_number=curr_q_no)
+            # print(get_que)
+            print('Back------')
+        except:
+            print("Error")
+        return render(request,'adminPanel/newquestion.html',{'question_increment':question_increment})

@@ -1,11 +1,11 @@
 {% extends 'studentDashboard/base.html' %}
 {% block content %}
-<div class="mainContents col-11.5 offset-1">
+<div class="mainContents col-11.5 offset-1" style="z-index: 7;">
     
-    <div class="row mt-5 myRow">
+    <div class="row myRow">
         <div class="card myCard" style="width: 18rem; border-radius: 10px; border: none;">
             <div class="card-header"
-                style="border-radius: 10px 10px 0px 0px; background-color:  #faa92a; display: flex; justify-content: space-between; align-items: center;">
+                style="border-radius: 10px 10px 0px 0px; background-color:  #FF0099; display: flex; justify-content: space-between; align-items: center;">
                 <p class="card-title mb-0" style="color: white; font-weight: 700; font-size: 17px;">Starts In</p>
                 <p class="mb-0" style="color: white; font-weight: 700;">10:40:10</p>
             </div>
@@ -51,7 +51,75 @@
                 <div class="btn-container d-flex justify-content-center p-2">
                     <button id="submitBtn" type="submit" value="Register"
                         class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center"
-                        style="background-color: #faa92a; border: none; color: white;">
+                        style="background-color: #FF0099; border: none; color: white;">
+                        Start
+                        <div class="loader" style="display: none;" id="loader">
+                            <svg class="circular" viewBox="25 25 50 50">
+                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
+                                    stroke-miterlimit="10" />
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 13px;"
+                            aria-readonly="true">Posted By D.C. Mehetre</p>
+                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 13px;"
+                            aria-readonly="true">2 Days Ago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card myCard" style="width: 18rem; border-radius: 10px; border: none;">
+            <div class="card-header"
+                style="border-radius: 10px 10px 0px 0px; background-color:  #FD1C03; display: flex; justify-content: space-between; align-items: center;">
+                <p class="card-title mb-0" style="color: white; font-weight: 700; font-size: 17px;">Starts In</p>
+                <p class="mb-0" style="color: white; font-weight: 700;">10:40:10</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Subject</p>
+                        <h5>Biology</h5>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Type</p>
+                        <h5>Unit Test</h5>
+                    </div>
+                    <div class="col-6">
+                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Duration</p>
+                        <div style="display: flex;">
+                            <h5>60</h5>
+                            <h5 class="ml-1">min</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Total
+                            Questions</p>
+                        <h5>30</h5>
+                    </div>
+                    <div class="col-6">
+                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Marks</p>
+                        <div style="display: flex;">
+                            <h5>100</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <p class="card-title mb-0" style="color: gray; font-weight: 500; font-size: 15px;">Date</p>
+                        <h5>4 Dec, 2020</h5>
+                    </div>
+                </div>
+                <div class="btn-container d-flex justify-content-center p-2">
+                    <button id="submitBtn" type="submit" value="Register"
+                        class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center"
+                        style="background-color: #FD1C03; border: none; color: white;">
                         Start
                         <div class="loader" style="display: none;" id="loader">
                             <svg class="circular" viewBox="25 25 50 50">
