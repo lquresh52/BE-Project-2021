@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from adminPanel.models import Test,Question
+from adminPanel.serializers import QuestionSerializer , TestSerializer
+from adminPanel.models import *
+from django.http import HttpResponse, JsonResponse
 
 @login_required(login_url='/login/')
 def dashboard(request):
@@ -9,10 +11,11 @@ def dashboard(request):
     return render(request, 'studentDashboard/dashboard.html',{'tests':tests})
 
 
-def studentTest(request,subjectName):
-    testSubject = subjectName
+def studentTest(request,subject_id):
+    testSubject = subject_id
     print("Test ID: ",testSubject)
-    ques = Question.objects.filter(subjectName = testSubject)
-    print("Questions: ",ques.question, " Option1: ",ques.option1," Option2 ",ques.option2, "Option3: ",ques.option3,"Option4: ",ques.option4,"Answer: ",ques.answer,"Question Number: ",ques.question_number )
-    
-    return render(request,"studentDashboard/student_test_page.html")
+    ques = Question.objects.filter(subject = subject_id)
+    ques_json = QuestionSerializer(ques, many=True)
+    print(ques_json.data)
+    # return JsonResponse(ques_json.data, safe=False)
+    return render(request,"studentDashboard/student_test_page.html",context={'question':ques_json.data})

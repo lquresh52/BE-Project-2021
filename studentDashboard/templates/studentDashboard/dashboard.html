@@ -151,19 +151,17 @@
                                 </div>
                             </div>
                             <div class="btn-container d-flex justify-content-center p-2 mt-2">
-                                <a href="{% url 'studentTest' test.subjectName %}">
-                                    <button id="cardBtn" type="submit" value="Register"
-                                        class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center"
-                                        onclick="OpenPopUpwindow(test.subjectName)">
-                                        Start
-                                        <div class="loader" style="display: none;" id="loader">
-                                            <svg class="circular" viewBox="25 25 50 50">
-                                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
-                                                    stroke-miterlimit="10" />
-                                            </svg>
-                                        </div>
-                                    </button>
-                                </a>
+                                <button id="cardBtn" type="submit" value="Register"
+                                    class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center"
+                                    onclick="OpenPopUpwindow('{{test.id}}')">
+                                    Start
+                                    <div class="loader" style="display: none;" id="loader">
+                                        <svg class="circular" viewBox="25 25 50 50">
+                                            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
+                                                stroke-miterlimit="10" />
+                                        </svg>
+                                    </div>
+                                </button>
                             </div>
                             <div class="row mt-2">
                                 <div class="col-12">
@@ -185,9 +183,9 @@
     <!-- For Exam Page new pop up window -->
     <script type="text/javascript">
         function OpenPopUpwindow(urlName) {
-            var url = "{% url 'studentTest' "+urlName+" %}"
+            alert(`hi bhaashdas ${urlName}`);
+            var url = "{{ request.path }}studentTest/"+urlName+"/";
             var windowFeatures = "fullscreen=yes, resizable=yes,scrollbars=yes , toolbar = no, menubar = no, location = no, directories = no , status = no";
-            console.log("URL: ",url);
             window.open(url, 'popUpWindow', [windowFeatures]);
         }
     </script>
