@@ -1,13 +1,14 @@
 
-var op1 = document.getElementById('optionid-1');
-var op2 = document.getElementById('optionid-2');
-var op3 = document.getElementById('optionid-3');
-var op4 = document.getElementById('optionid-4');
-var correct_ans = document.getElementById('corr_op');
+function selectCorrectAns(id, divId, counter) {
 
-function selectCorrectAns(id, divId) {
+    var op1 = document.getElementById('optionid-1'+counter);
+    var op2 = document.getElementById('optionid-2'+counter);
+    var op3 = document.getElementById('optionid-3'+counter);
+    var op4 = document.getElementById('optionid-4'+counter);
+    var correct_ans = document.getElementById('corr_op');
+
     var Cans = document.getElementById('Canswer')
-    console.log(Cans+'---------------');
+    console.log(Cans + '---------------');
     var nextBtn = document.getElementById('nextBtn')
     var mainDiv = document.getElementById(divId);
     console.log("MAIN DIV ", mainDiv)
@@ -30,28 +31,28 @@ function selectCorrectAns(id, divId) {
         if (mainDiv != op1) {
             deSelectRest(op1)
         }
-        else{
+        else {
             correct_ans.value = 1;
         }
-        
+
         if (mainDiv != op2) {
             deSelectRest(op2)
         }
-        else{
+        else {
             correct_ans.value = 2;
         }
 
         if (mainDiv != op3) {
             deSelectRest(op3)
         }
-        else{
+        else {
             correct_ans.value = 3;
         }
-        
+
         if (mainDiv != op4) {
             deSelectRest(op4)
         }
-        else{
+        else {
             correct_ans.value = 4;
         }
     }
@@ -61,7 +62,7 @@ function selectCorrectAns(id, divId) {
 function deSelectRest(divRef) {
 
     var spans = divRef.getElementsByTagName('span');
-    console.log(spans+' <<<=====');
+    console.log(spans + ' <<<=====');
     if (spans[0].innerHTML == 'check_circle') {
         console.log(spans[0])
         spans[0].innerHTML = 'radio_button_unchecked'

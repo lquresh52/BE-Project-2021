@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+html{
+    scroll-behavior: smooth;
+}
+
 body{
     font-family: 'Roboto', sans-serif;
 }
@@ -104,6 +108,7 @@ body{
 }
 
 .question{
+    margin-top: 50px;
     /* height: 15vh; */
     box-shadow: 0 5px 10px rgb(189, 148, 229);
     border-radius: 7px;
@@ -178,7 +183,7 @@ input[type="file"]{
     cursor: pointer;
     color: rgb(117, 115, 233);
     align-items: center;
-    position: fixed;
+    position: relative;
 }
 
 
@@ -187,6 +192,11 @@ input[type="file"]{
     display: flex;
     justify-content: space-evenly;
 }
+
+.optionLast{
+    margin-bottom: 50px;
+}
+
 .options{
     height: 100px;
     border-radius: 7px;
@@ -277,21 +287,29 @@ td{
 
 .eachQuestion{
     background-color: #00FF66;
+    border-radius: 7px;
+    text-align: center;
+    padding: 5px 0px 5px 0px ;
+    margin: 7px;
+    display: flex;
+    justify-content: space-evenly;
+    font-weight: bolder;
+    color: var(--darkBlue);
 }
 
+a{
+    text-decoration: none !important;
+}
 .questionTable{
     /* background-color: ; */
     box-shadow:  5px 5px 5px rgb(189, 148, 229),-0px -3px 4px rgb(189, 148, 229);
-    
     /* border: 2px solid var(--darkBlue); */
     border-radius: 7px;
-    margin-top: 25px;
     height: 280px;
+    margin-top: 25px;
     overflow: auto;
-    display: flex;
-    justify-content: space-evenly;
-    border-collapse: separate;
-    border-spacing: 20px;
+    /* padding-left: 50px; */
+
 }
 .questionTable::-webkit-scrollbar {
     width: 8px;
@@ -367,6 +385,7 @@ td{
     }
     .selecticon{
         font-size: 32px;
+        position: relative;
     }
 
     .questionBar{

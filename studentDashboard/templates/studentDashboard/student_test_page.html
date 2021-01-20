@@ -51,99 +51,107 @@
         <div class="contents">
             <div class="col-12 pl-0 pr-0">
                 <form action="" method="POST" class="col-12 pl-0 pr-0">
-                    <div class="col-12 questionDiv">
+                    {% csrf_token %}
+                    {% for question in questions %}
+                    <div id="questionScrolling-{{ forloop.counter }}">
+                        <div class="col-12 questionDiv">
+                            <p class="question col-12 " name="question" id="qtext">
+                                <span style="float: left;">Q{{forloop.counter}} )</span>
+                                {{question.question}}
+                            </p>
+                        </div>
 
-                        <p class="question col-12 " name="question" id="qtext"> {{question}} </p>
+                        <div class="row optionRow mt-5 col-12 mr-0 ml-0">
+                            <!-- Option 1 -->
+                            <div class="col-12 col-md-5 options" id="optionid-1{{ forloop.counter }}">
+                                <div class="row optionContents">
+                                    <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        <p id="op1" name="option1" class="col-12 mb-0 pl-1 pr-0 optionInput">
+                                            {{ question.option1 }}
+                                        </p>
+
+                                    </div>
+                                    <div class="col-2 col-lg-1 pl-0 pr-0">
+                                        <div class="col-12"
+                                            style="display: flex; align-items: center; justify-content: center;">
+                                            <span class="material-icons selecticon ml-auto mr-auto radioBtn"
+                                                onclick="selectCorrectAns(1,'optionid-1{{ forloop.counter }}','{{ forloop.counter }}')">
+                                                radio_button_unchecked
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Option 2 -->
+                            <div class="col-12 col-md-5 options mt-3 mt-md-0" id="optionid-2{{ forloop.counter }}">
+                                <div class="row optionContents">
+                                    <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        <p id="op2" name="option2" class="col-12 mb-0 pl-1 pr-0 optionInput">
+                                            {{ question.option2 }}
+                                        </p>
+
+                                    </div>
+                                    <div class="col-2 col-lg-1 pl-0 pr-0">
+                                        <div class="col-12"
+                                            style="display: flex; align-items: center; justify-content: center;">
+                                            <span class="material-icons selecticon ml-auto mr-auto radioBtn"
+                                                onclick="selectCorrectAns(2,'optionid-2{{ forloop.counter }}' ,'{{ forloop.counter }}')">
+                                                radio_button_unchecked
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row optionRow optionLast mt-3 mt-lg-4 col-12 mr-0 ml-0 ">
+                            <!-- Option 3 -->
+                            <div class="col-12 col-md-5 options" id="optionid-3{{ forloop.counter }}">
+                                <div class="row optionContents">
+                                    <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        <p id="op3" name="option3" class="col-12 mb-0 pl-1 pr-0 optionInput">
+                                            {{ question.option3 }}
+                                        </p>
+
+                                    </div>
+                                    <div class="col-2 col-lg-1 pl-0 pr-0">
+                                        <div class="col-12"
+                                            style="display: flex; align-items: center; justify-content: center;">
+                                            <span class="material-icons selecticon ml-auto mr-auto radioBtn"
+                                                onclick="selectCorrectAns(3,'optionid-3{{ forloop.counter }}','{{ forloop.counter }}')">
+                                                radio_button_unchecked
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Option 4 -->
+                            <div class="col-12 col-md-5 options mt-3 mt-md-0" id="optionid-4{{ forloop.counter }}">
+                                <div class="row optionContents">
+                                    <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        <p id="op4" name="option4" class="col-12 mb-0 pl-1 pr-0 optionInput">
+                                            {{ question.option4 }}
+                                        </p>
+
+                                    </div>
+                                    <div class="col-2 col-lg-1 pl-0 pr-0">
+                                        <div class="col-10"
+                                            style="display: flex; align-items: center; justify-content: center;">
+                                            <span class="material-icons selecticon ml-auto mr-auto radioBtn"
+                                                onclick="selectCorrectAns(4,'optionid-4{{ forloop.counter }}','{{ forloop.counter }}')">
+                                                radio_button_unchecked
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="row optionRow mt-5 col-12 mr-0 ml-0">
-                        <!-- Option 1 -->
-                        <div class="col-12 col-md-5 options" id="optionid-1">
-                            <div class="row optionContents">
-                                <div class="col-9 col-lg-10 pl-0 pr-0">
-                                    <p id="op1" name="option1" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                        My Name is Bharat . I live in Rajasthan. My college is KJCOEMR
-                                    </p>
-
-                                </div>
-                                <div class="col-2 col-lg-1 pl-0 pr-0">
-                                    <div class="col-12"
-                                        style="display: flex; align-items: center; justify-content: center;">
-                                        <span class="material-icons selecticon ml-auto mr-auto radioBtn"
-                                            onclick="selectCorrectAns(1,'optionid-1')">
-                                            radio_button_unchecked
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Option 2 -->
-                        <div class="col-12 col-md-5 options mt-3 mt-md-0" id="optionid-2">
-                            <div class="row optionContents">
-                                <div class="col-9 col-lg-10 pl-0 pr-0">
-                                    <p id="op2" name="option2" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                        Option 2
-                                    </p>
-
-                                </div>
-                                <div class="col-2 col-lg-1 pl-0 pr-0">
-                                    <div class="col-12"
-                                        style="display: flex; align-items: center; justify-content: center;">
-                                        <span class="material-icons selecticon ml-auto mr-auto radioBtn"
-                                            onclick="selectCorrectAns(2,'optionid-2')">
-                                            radio_button_unchecked
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row optionRow mt-3 mt-lg-4 col-12 mr-0 ml-0 ">
-                        <!-- Option 3 -->
-                        <div class="col-12 col-md-5 options" id="optionid-3">
-                            <div class="row optionContents">
-                                <div class="col-9 col-lg-10 pl-0 pr-0">
-                                    <p id="op3" name="option3" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                        Option 3 </p>
-
-                                </div>
-                                <div class="col-2 col-lg-1 pl-0 pr-0">
-                                    <div class="col-12"
-                                        style="display: flex; align-items: center; justify-content: center;">
-                                        <span class="material-icons selecticon ml-auto mr-auto radioBtn"
-                                            onclick="selectCorrectAns(3,'optionid-3')">
-                                            radio_button_unchecked
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Option 4 -->
-                        <div class="col-12 col-md-5 options mt-3 mt-md-0" id="optionid-4">
-                            <div class="row optionContents">
-                                <div class="col-9 col-lg-10 pl-0 pr-0">
-                                    <p id="op4" name="option4" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                        Option 4 </p>
-
-                                </div>
-                                <div class="col-2 col-lg-1 pl-0 pr-0">
-                                    <div class="col-10"
-                                        style="display: flex; align-items: center; justify-content: center;">
-                                        <span class="material-icons selecticon ml-auto mr-auto radioBtn"
-                                            onclick="selectCorrectAns(4,'optionid-4')">
-                                            radio_button_unchecked
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <input type="hidden" name="answer" id="corr_op" value="0">
+                    {% endfor %}
                     <div class="row col-12 mt-4 mb-4 mr-0 ml-0">
                         <div class="text-center col-12">
-                            <input type="submit" id="nextBtn" value="NEXT" class="btn btn-outline-success " disabled>
+                            <input type="submit" id="nextBtn" value="SUBMIT" class="btn btn-outline-success " disabled>
                         </div>
                     </div>
                 </form>
@@ -158,46 +166,14 @@
                 <p class="Timer"> 04:30:22 </p>
             </div>
 
-            <div class="questionTableDiv">
-                <table class="questionTable">
-                    <tr id="tableRow">
-                        <td class="eachQuestion"> 1 </td>
-                        <td> 2 </td>
-                        <td> 3 </td>
-                        <td> 4 </td>
-                    </tr>
-                    <tr id="tableRow">
-                        <td class="eachQuestion"> 1 </td>
-                        <td> 2 </td>
-                        <td> 3 </td>
-                        <td> 4 </td>
-                    </tr>
-                    <tr id="tableRow">
-                        <td class="eachQuestion"> 1 </td>
-                        <td> 2 </td>
-                        <td> 3 </td>
-                        <td> 4 </td>
-                    </tr>
-                    <tr id="tableRow">
-                        <td class="eachQuestion"> 1 </td>
-                        <td> 2 </td>
-                        <td> 3 </td>
-                        <td> 4 </td>
-                    </tr>
-                    <tr id="tableRow">
-                        <td class="eachQuestion"> 1 </td>
-                        <td> 2 </td>
-                        <td> 3 </td>
-                        <td> 4 </td>
-                    </tr>
-                    <tr id="tableRow">
-                        <td class="eachQuestion"> 1 </td>
-                        <td> 2 </td>
-                        <td> 3 </td>
-                        <td> 4 </td>
-                    </tr>
-
-                </table>
+            <div class=" questionTable">
+                <div class="row col-12 m-0 ">
+                    {% for question in questions %}
+                    <a class="col-md-3 eachQuestion" href="#questionScrolling-{{ forloop.counter }}">
+                        <div>{{ forloop.counter }}</div>
+                    </a>
+                    {% endfor %}
+                </div>
             </div>
 
             <div id="cameraDiv">
