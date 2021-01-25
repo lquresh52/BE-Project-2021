@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,15 @@
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
     <link rel="stylesheet" href="../../../static/css/student_test_page.css">
-
+   
+   
+    <script defer src="{% static 'js/face-api.min.js' %}"></script>
+    <script defer src="{% static 'js/faceDetection-script.js' %}"></script>
+    <style>
+        canvas {
+            position: absolute;
+        }
+    </style>
 </head>
 
 <body>
@@ -236,7 +244,7 @@
     </script> -->
 
     <!-- For WebCam -->
-    <script>
+    <!-- <script>
         var video = document.querySelector("#videoElement");
 
         if (navigator.mediaDevices.getUserMedia) {
@@ -248,7 +256,7 @@
                     console.log("Something went wrong!");
                 });
         }
-    </script>
+    </script> -->
 
     <script src="../../../static/js/student_test_page.js"></script>
 
