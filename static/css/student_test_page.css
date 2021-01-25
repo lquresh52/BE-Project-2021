@@ -182,8 +182,8 @@ input[type="file"]{
     font-size: 40px;
     cursor: pointer;
     color: rgb(117, 115, 233);
+    display: flex;
     align-items: center;
-    position: relative;
 }
 
 

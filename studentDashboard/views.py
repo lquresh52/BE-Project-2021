@@ -10,6 +10,7 @@ def dashboard(request):
     print(tests)
     return render(request, 'studentDashboard/dashboard.html',{'tests':tests})
 
+@login_required(login_url='/login/')
 def studentTest(request,subject_id):
     if request.method == 'POST':
         # question,option1,option2,option3,option4,answer = []
@@ -31,3 +32,7 @@ def studentTest(request,subject_id):
     
         # return JsonResponse(ques_json.data, safe=False)
         return render(request,"studentDashboard/student_test_page.html",context={'questions':ques_json.data })
+
+
+def historyPage(request):
+    return render(request,"studentDashboard/history_page.html")
