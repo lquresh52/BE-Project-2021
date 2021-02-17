@@ -35,5 +35,5 @@ class Question(models.Model):
     
 
     def __str__(self):
-        return self.question
+        return f'{self.subject.subjectName} - {self.question[:50]}'
 

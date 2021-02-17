@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 
 <head>
@@ -17,7 +18,7 @@
     <!-- jQuery 1.7.2+ or Zepto.js 1.0+ -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="../../../static/css/result.css">
+    <link rel="stylesheet" href="{% static 'css/result.css' %}">
 
 
 </head>
@@ -114,123 +115,63 @@
                 </div>
             </div>
 
-            <div class="row questionShow">
-                <div class="col-12 pl-0 pr-0">
-                    <div class="col-12 questionDiv">
+            {% for i in tot_ques_lst %}
+                <div class="row questionShow">
+                    <div class="col-12 pl-0 pr-0">
+                        <div class="col-12 questionDiv">
+                            <p class="question col-12 " name="question" id="qtext"> {{data}} </p>
+                        </div>
 
-                        <p class="question col-12 " name="question" id="qtext"> {{question}} </p>
+                        <div class="row optionRow mt-5 col-12 mr-0 ml-0">
+                            <!-- Option 1 -->
+                            <div class="col-12 col-md-5 options correctAnswer" id="optionid-1">
+                                <div class="row optionContents">
+                                    <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        <p id="op1" name="option1" class="col-12 mb-0 pl-1 pr-0 optionInput">
+                                            Answer
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Option 2 -->
+                            <div class="col-12 col-md-5 options mt-3 mt-md-0 wrongAnswer" id="optionid-2">
+                                <div class="row optionContents">
+                                    <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        <p id="op2" name="option2" class="col-12 mb-0 pl-1 pr-0 optionInput">
+                                            Selected Answer
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row optionRow mt-3 mt-lg-4 col-12 mr-0 ml-0 ">
+                            <!-- Option 3 -->
+                            <div class="col-12 col-md-5 options" id="optionid-3">
+                                <div class="row optionContents">
+                                    <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        <p id="op3" name="option3" class="col-12 mb-0 pl-1 pr-0 optionInput">
+                                            Option 3 </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Option 4 -->
+                            <div class="col-12 col-md-5 options mt-3 mt-md-0" id="optionid-4">
+                                <div class="row optionContents">
+                                    <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        <p id="op4" name="option4" class="col-12 mb-0 pl-1 pr-0 optionInput">
+                                            Option 4 </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="row optionRow mt-5 col-12 mr-0 ml-0">
-                        <!-- Option 1 -->
-                        <div class="col-12 col-md-5 options correctAnswer" id="optionid-1">
-                            <div class="row optionContents">
-                                <div class="col-9 col-lg-10 pl-0 pr-0">
-                                    <p id="op1" name="option1" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                        Answer
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Option 2 -->
-                        <div class="col-12 col-md-5 options mt-3 mt-md-0 wrongAnswer" id="optionid-2">
-                            <div class="row optionContents">
-                                <div class="col-9 col-lg-10 pl-0 pr-0">
-                                    <p id="op2" name="option2" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                        Selected Answer
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row optionRow mt-3 mt-lg-4 col-12 mr-0 ml-0 ">
-                        <!-- Option 3 -->
-                        <div class="col-12 col-md-5 options" id="optionid-3">
-                            <div class="row optionContents">
-                                <div class="col-9 col-lg-10 pl-0 pr-0">
-                                    <p id="op3" name="option3" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                        Option 3 </p>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Option 4 -->
-                        <div class="col-12 col-md-5 options mt-3 mt-md-0" id="optionid-4">
-                            <div class="row optionContents">
-                                <div class="col-9 col-lg-10 pl-0 pr-0">
-                                    <p id="op4" name="option4" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                        Option 4 </p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div>
-            </div>
+            {% endfor %}
 
-            <div class="row questionShow">
-                <div class="col-12 pl-0 pr-0">
-                    <div class="col-12 questionDiv">
-
-                        <p class="question col-12 " name="question" id="qtext"> {{question}} </p>
-                    </div>
-
-                    <div class="row optionRow mt-5 col-12 mr-0 ml-0">
-                        <!-- Option 1 -->
-                        <div class="col-12 col-md-5 options correctAnswer" id="optionid-1">
-                            <div class="row optionContents ">
-                                <div class="col-9 col-lg-10 pl-0 pr-0">
-                                    <p id="op1" name="option1" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                        Answer
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Option 2 -->
-                        <div class="col-12 col-md-5 options mt-3 mt-md-0 wrongAnswer" id="optionid-2">
-                            <div class="row optionContents">
-                                <div class="col-9 col-lg-10 pl-0 pr-0">
-                                    <p id="op2" name="option2" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                        Selected Answer
-                                    </p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row optionRow mt-3 mt-lg-4 col-12 mr-0 ml-0 ">
-                        <!-- Option 3 -->
-                        <div class="col-12 col-md-5 options" id="optionid-3">
-                            <div class="row optionContents">
-                                <div class="col-9 col-lg-10 pl-0 pr-0">
-                                    <p id="op3" name="option3" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                        Option 3 </p>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Option 4 -->
-                        <div class="col-12 col-md-5 options mt-3 mt-md-0" id="optionid-4">
-                            <div class="row optionContents">
-                                <div class="col-9 col-lg-10 pl-0 pr-0">
-                                    <p id="op4" name="option4" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                        Option 4 </p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
         </div>
     </div>
 
@@ -238,7 +179,7 @@
     <!-- Google Pie Charts -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <script type="text/javascript" src="../../../static/js/result.js"></script>
+    <script type="text/javascript" src="{% static 'js/result.js' %}"></script>
 
     <!-- Bootstrap Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

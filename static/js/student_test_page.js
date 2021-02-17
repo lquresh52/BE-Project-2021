@@ -5,7 +5,7 @@ function selectCorrectAns(id, divId, counter) {
     var op2 = document.getElementById('optionid-2'+counter);
     var op3 = document.getElementById('optionid-3'+counter);
     var op4 = document.getElementById('optionid-4'+counter);
-    var correct_ans = document.getElementById('corr_op');
+    var correct_ans = document.getElementById('selected-op-'+counter);
 
     var Cans = document.getElementById('Canswer')
     console.log(Cans + '---------------');

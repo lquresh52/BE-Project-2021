@@ -1,4 +1,3 @@
-alert("hi");
 const video = document.getElementById("videoElement");
 
 Promise.all([
