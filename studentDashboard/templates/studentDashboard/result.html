@@ -115,58 +115,115 @@
                 </div>
             </div>
 
-            {% for i in tot_ques_lst %}
+            {% for i in data %}
                 <div class="row questionShow">
                     <div class="col-12 pl-0 pr-0">
                         <div class="col-12 questionDiv">
-                            <p class="question col-12 " name="question" id="qtext"> {{data}} </p>
+                            <p class="question col-12 " name="question" id="qtext">{{i.fields.question}}</p>
                         </div>
 
                         <div class="row optionRow mt-5 col-12 mr-0 ml-0">
                             <!-- Option 1 -->
+                            {% if i.fields.answer == 1 %}
                             <div class="col-12 col-md-5 options correctAnswer" id="optionid-1">
                                 <div class="row optionContents">
                                     <div class="col-9 col-lg-10 pl-0 pr-0">
                                         <p id="op1" name="option1" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                            Answer
+                                            {{i.fields.option1}}
                                         </p>
 
                                     </div>
                                 </div>
                             </div>
+                            {% else %}
+                            <div class="col-12 col-md-5 options" id="optionid-1">
+                                <div class="row optionContents">
+                                    <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        <p id="op1" name="option1" class="col-12 mb-0 pl-1 pr-0 optionInput">
+                                            {{i.fields.option1}}
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            
                             <!-- Option 2 -->
-                            <div class="col-12 col-md-5 options mt-3 mt-md-0 wrongAnswer" id="optionid-2">
+                            {% if i.fields.answer == 2 %}
+                            <div class="col-12 col-md-5 options mt-3 mt-md-0 correctAnswer" id="optionid-2">
                                 <div class="row optionContents">
                                     <div class="col-9 col-lg-10 pl-0 pr-0">
                                         <p id="op2" name="option2" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                            Selected Answer
+                                            {{i.fields.option2}}
                                         </p>
 
                                     </div>
                                 </div>
                             </div>
+                            {% else %}
+                            <div class="col-12 col-md-5 options mt-3 mt-md-0" id="optionid-2">
+                                <div class="row optionContents">
+                                    <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        <p id="op2" name="option2" class="col-12 mb-0 pl-1 pr-0 optionInput">
+                                            {{i.fields.option2}}
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
 
                         <div class="row optionRow mt-3 mt-lg-4 col-12 mr-0 ml-0 ">
                             <!-- Option 3 -->
-                            <div class="col-12 col-md-5 options" id="optionid-3">
+                            {% if i.fields.answer == 3 %}
+                            <div class="col-12 col-md-5 options correctAnswer" id="optionid-3">
                                 <div class="row optionContents">
                                     <div class="col-9 col-lg-10 pl-0 pr-0">
                                         <p id="op3" name="option3" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                            Option 3 </p>
+                                            {{i.fields.option3}}
+                                        </p>
 
                                     </div>
                                 </div>
                             </div>
+                            {% else %}
+                            <div class="col-12 col-md-5 options" id="optionid-3">
+                                <div class="row optionContents">
+                                    <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        <p id="op3" name="option3" class="col-12 mb-0 pl-1 pr-0 optionInput">
+                                            {{i.fields.option3}}
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            
                             <!-- Option 4 -->
+                            {% if i.fields.answer == 4 %}
+                            <div class="col-12 col-md-5 options mt-3 mt-md-0 correctAnswer" id="optionid-4">
+                                <div class="row optionContents">
+                                    <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        <p id="op4" name="option4" class="col-12 mb-0 pl-1 pr-0 optionInput">
+                                            {{i.fields.option4}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
                             <div class="col-12 col-md-5 options mt-3 mt-md-0" id="optionid-4">
                                 <div class="row optionContents">
                                     <div class="col-9 col-lg-10 pl-0 pr-0">
                                         <p id="op4" name="option4" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                            Option 4 </p>
+                                            {{i.fields.option4}}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
+                            {% endif %}
+
                         </div>
                     </div>
                 </div>
