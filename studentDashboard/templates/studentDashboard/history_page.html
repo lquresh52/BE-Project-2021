@@ -101,33 +101,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>DAA</td>
-                                <td>Mock Test</td>
-                                <td>60 mins</td>
-                                <td>50</td>
-                                <td>100</td>
-                                <td>Jan 26,2021</td>
-                                <td> <a href="#">View Result</a></td>
-                            </tr>
-                            <tr>
-                                <td>HPC</td>
-                                <td>Practice Test</td>
-                                <td>30 mins</td>
-                                <td>20</td>
-                                <td>50</td>
-                                <td>Jan 29,2021</td>
-                                <td><a href="#">View Result</a></td>
-                            </tr>
-                            <tr>
-                                <td>DAA</td>
-                                <td>Mock Test</td>
-                                <td>60 mins</td>
-                                <td>50</td>
-                                <td>100</td>
-                                <td>Jan 26,2021</td>
-                                <td><a href="#">View Result</a></td>
-                            </tr>
+                            {% for i in history %}
+                                <tr>
+                                    <td>{{i.test_id}}</td>
+                                    <td>Mock Test</td>
+                                    <td>{{i.test_id.examDuration}} mins</td>
+                                    <td>{{i.test_id.totalQuestions}}</td>
+                                    <td>{{i.test_id.totalMarks}}</td>
+                                    <td>{{i.created_at}}</td>
+                                    <td> <a href="{% url 'result-page' i.score i.no_of_que i.test_id.pk %}">View Result</a></td>
+                                </tr>
+                            {% endfor %}
                             <!-- and so on... -->
                         </tbody>
                     </table>

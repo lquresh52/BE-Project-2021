@@ -10,6 +10,7 @@ import ast
 import random
 import json
 
+
 @login_required(login_url='/login/')
 def dashboard(request):
     tests = Test.objects.filter(quiz_completed=True)
@@ -140,11 +141,13 @@ def result_page(request,score,tot_ques,history_id):
         return render(request,"studentDashboard/result.html")
     else:
         tot_ques_lst = [int(i) for i in range(tot_ques)]
-
-        return render(request,"studentDashboard/result.html", context={'data':data,'tot_ques_lst':tot_ques_lst,'len':len(tot_ques_lst),'score':score})
+        percentage = round((score / len(tot_ques_lst)) * 100, 2)
+        return render(request,"studentDashboard/result.html", context={'data':data,'tot_ques_lst':tot_ques_lst,'len':len(tot_ques_lst),'score':score, 'history':history, 'percentage': percentage})
 
 
 
 
 def historyPage(request):
-    return render(request,"studentDashboard/history_page.html")
+    history = Exam_History.objects.filter(user=request.user)
+    print(history)
+    return render(request,"studentDashboard/history_page.html", context={'history':history})
