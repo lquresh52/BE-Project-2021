@@ -26,11 +26,13 @@ class Question(models.Model):
     subject = models.ForeignKey(Test,on_delete=models.CASCADE,null=True)
     question_number = models.IntegerField()
     question = models.TextField()
-    option1 = models.TextField()
-    option2 = models.TextField()
-    option3 = models.TextField()
-    option4 = models.TextField()
-    answer = models.IntegerField()
+    option1 = models.TextField(null=True,blank=True)
+    option2 = models.TextField(null=True,blank=True)
+    option3 = models.TextField(null=True,blank=True)
+    option4 = models.TextField(null=True,blank=True)
+    answer = models.IntegerField(null=True,blank=True)
+    is_objective = models.BooleanField(null=True)
+    descriptive_answer = models.TextField(null=True)
     # difficulty_level = models.IntegerField(default=1)
     
 

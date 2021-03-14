@@ -68,21 +68,38 @@ def questionList(request,quiz_id,totalQuestions,curr_q_no):
             op4 = request.POST.get('option4_img')
 
         answer = request.POST.get('answer')
+        que_type = request.POST.get('que_type')
+        print("QUES_TYPE",type(que_type))
+        desc_answer = request.POST.get('danswer')
+        print("DANS",desc_answer)
 
-        try:
-            get_que = Question.objects.get(subject=quiz,question_number=curr_q_no)
-            # print(get_que)
-            get_que.question = question
-            get_que.option1 = op1
-            get_que.option2 = op2
-            get_que.option3 = op3
-            get_que.option4 = op4
-            get_que.answer = answer
-            get_que.save()
-        except:
-            print("new question")
-            save_question = Question(subject = quiz,question_number=curr_q_no ,question=question, option1 = op1, option2 = op2, option3 = op3, option4 = op4, answer=answer)
-            save_question.save()
+        # try:
+        #     get_que = Question.objects.get(subject=quiz,question_number=curr_q_no)
+        #     get_que.question = question
+        #     if que_type == 'True':
+
+        #         get_que.is_objective = True
+        #         print("GETQUE.",get_que.is_objective)
+        #         get_que.option1 = op1
+        #         get_que.option2 = op2
+        #         get_que.option3 = op3
+        #         get_que.option4 = op4
+        #         get_que.answer = answer
+        #     else:
+        #         get_que.is_objective = False
+        #         print("GETQUE2345.",get_que.is_objective)
+        #         get_que.descriptive_answer = desc_answer
+        #     print(get_que.is_objective)
+        #     get_que.save()
+        # except:
+        print("new question")
+        if que_type == 'True':
+            save_question = Question(subject = quiz,question_number=curr_q_no ,question=question, option1 = op1, option2 = op2, option3 = op3, option4 = op4, answer=answer,is_objective=True,descriptive_answer=None)
+        else:
+            save_question = Question(subject = quiz,question_number=curr_q_no ,question=question,is_objective=False,descriptive_answer=desc_answer)
+
+
+        save_question.save()
 
         if curr_q_no != totalQuestions:
             quiz.number_of_question_added = curr_q_no

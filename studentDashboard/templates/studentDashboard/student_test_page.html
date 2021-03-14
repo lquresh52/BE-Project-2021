@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,8 +16,8 @@
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
     <link rel="stylesheet" href="../../../static/css/student_test_page.css">
-   
-   
+
+
     <script defer src="{% static 'js/face-api.min.js' %}"></script>
     <script defer src="{% static 'js/faceDetection-script.js' %}"></script>
     <style>
@@ -64,21 +65,34 @@
                     {% for question in questions %}
                     <div id="questionScrolling-{{ forloop.counter }}">
                         <div class="col-12 questionDiv">
+                            {%if question.question|length > 2000%}
+
+                            <img src="{{question.question}}" alt="Question IMg" height="300" width="300"
+                                style="display: block !important;">
+                            {% else %}
                             <p class="question col-12 " name="question" id="qtext">
                                 <span style="float: left;">Q{{forloop.counter}} )</span>
                                 {{question.question}}
                             </p>
+                            {% endif %}
                             <input name="que-{{forloop.counter}}" type="text" value="{{question.question}}" hidden>
                         </div>
 
+                        {% if question.is_objective %}
                         <div class="row optionRow mt-5 col-12 mr-0 ml-0">
                             <!-- Option 1 -->
                             <div class="col-12 col-md-5 options" id="optionid-1{{ forloop.counter }}">
                                 <div class="row optionContents">
                                     <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        {%if question.option1|length > 2000%}
+
+                                        <img src="{{question.option1}}" alt="Question IMg" height="300" width="300"
+                                            style="display: block !important;">
+                                        {% else %}
                                         <p id="op1" name="option1" class="col-12 mb-0 pl-1 pr-0 optionInput">
                                             {{ question.option1 }}
                                         </p>
+                                        {% endif %}
                                         <input name="op-1" type="text" value="{{question.option1}}" hidden>
                                     </div>
                                     <div class="col-2 col-lg-1 pl-0 pr-0">
@@ -96,9 +110,15 @@
                             <div class="col-12 col-md-5 options mt-3 mt-md-0" id="optionid-2{{ forloop.counter }}">
                                 <div class="row optionContents">
                                     <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        {%if question.option2|length > 2000%}
+
+                                        <img src="{{question.option2}}" alt="Question IMg" height="300" width="300"
+                                            style="display: block !important;">
+                                        {% else %}
                                         <p id="op2" name="option2" class="col-12 mb-0 pl-1 pr-0 optionInput">
                                             {{ question.option2 }}
                                         </p>
+                                        {% endif %}
                                         <input name="op-2" type="text" value="{{question.option2}}" hidden>
                                     </div>
                                     <div class="col-2 col-lg-1 pl-0 pr-0">
@@ -119,9 +139,15 @@
                             <div class="col-12 col-md-5 options" id="optionid-3{{ forloop.counter }}">
                                 <div class="row optionContents">
                                     <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        {%if question.option3|length > 2000%}
+
+                                        <img src="{{question.option3}}" alt="Question IMg" height="300" width="300"
+                                            style="display: block !important;">
+                                        {% else %}
                                         <p id="op3" name="option3" class="col-12 mb-0 pl-1 pr-0 optionInput">
                                             {{ question.option3 }}
                                         </p>
+                                        {% endif %}
                                         <input name="op-3" type="text" value="{{question.option3}}" hidden>
                                     </div>
                                     <div class="col-2 col-lg-1 pl-0 pr-0">
@@ -139,9 +165,15 @@
                             <div class="col-12 col-md-5 options mt-3 mt-md-0" id="optionid-4{{ forloop.counter }}">
                                 <div class="row optionContents">
                                     <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        {%if question.option4|length > 2000%}
+
+                                        <img src="{{question.option4}}" alt="Question IMg" height="300" width="300"
+                                            style="display: block !important;">
+                                        {% else %}
                                         <p id="op4" name="option4" class="col-12 mb-0 pl-1 pr-0 optionInput">
                                             {{ question.option4 }}
                                         </p>
+                                        {% endif %}
                                         <input name="op-4" type="text" value="{{question.option4}}" hidden>
                                     </div>
                                     <div class="col-2 col-lg-1 pl-0 pr-0">
@@ -156,8 +188,17 @@
                                 </div>
                             </div>
                         </div>
+                        {% else %}
+
+                        <div class="col-12 questionDiv pr-0 pl-0 " id="textField">
+                            <textarea name="danswer" id="qtext" class="answer col-12" cols="30" rows="30"
+                                placeholder="Type answer"></textarea>
+        
+                        </div>
+                        {% endif %}
                     </div>
-                    <input type="number" name="selected-op-{{forloop.counter}}" id="selected-op-{{forloop.counter}}" hidden value="0">
+                    <input type="number" name="selected-op-{{forloop.counter}}" id="selected-op-{{forloop.counter}}"
+                        hidden value="0">
                     {% endfor %}
                     <div class="row col-12 mt-4 mb-4 mr-0 ml-0">
                         <div class="text-center col-12">
@@ -238,6 +279,27 @@
 
     <script src="../../../static/js/student_test_page.js"></script>
 
+    {% comment %}
+    <script type="text/javascript">
+        window.onload = maxWindow;
+
+        function maxWindow() {
+            window.moveTo(0, 0);
+            top.window.resizeTo(screen.availWidth, screen.availHeight);
+            if (document.all) {
+
+            }
+
+            else if (document.layers || document.getElementById) {
+                if (top.window.outerHeight < screen.availHeight || top.window.outerWidth < screen.availWidth) {
+                    top.window.outerHeight = screen.availHeight;
+                    top.window.outerWidth = screen.availWidth;
+                }
+            }
+        }
+    </script> {% endcomment %}
+
+
     <!-- Bootstrap Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -249,52 +311,53 @@
         integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
         crossorigin="anonymous"></script>
 
-        <!-- This script is to disable the inspect element -->
-        <script>
-            $(document).bind("contextmenu",function(e) {
-                e.preventDefault();
-            });
-            
-            $(document).keydown(function(e){
-                if(e.which === 123){
-                    return false;
-                }
-            });
+    <!-- This script is to disable the inspect element -->
+    {% comment %}
+    <script>
+        $(document).bind("contextmenu", function (e) {
+            e.preventDefault();
+        });
 
-            document.onkeydown = function(e) {
-                if(event.keyCode == 123) {
+        $(document).keydown(function (e) {
+            if (e.which === 123) {
                 return false;
-                }
-                if(e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)){
-                return false;
-                }
-                if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
-                return false;
-                }
-                if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
-                return false;
-                }
-                if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
-                return false;
-                }
-                if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)){
-                return false;
-                }
-                if(e.ctrlKey && e.keyCode == 'H'.charCodeAt(0)){
-                return false;
-                }
-                if(e.ctrlKey && e.keyCode == 'A'.charCodeAt(0)){
-                return false;
-                }
-                if(e.ctrlKey && e.keyCode == 'F'.charCodeAt(0)){
-                return false;
-                }
-                if(e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)){
-                return false;
-                }
-                }
+            }
+        });
 
-        </script>
+        document.onkeydown = function (e) {
+            if (event.keyCode == 123) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'H'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'A'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'F'.charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)) {
+                return false;
+            }
+        }
+
+    </script> {% endcomment %}
 
 </body>
 

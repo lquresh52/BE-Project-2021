@@ -6,6 +6,7 @@
 
 body{
     font-family: 'Roboto', sans-serif;
+    overflow-x : hidden;
 }
 
 :root{
@@ -301,6 +302,10 @@ input[type="text"]{
 }
 .optionInput{
     font-size: 28px;
+}
+.answer{
+    font-size: 30px;
+    height: 500px;
 }
 
 
