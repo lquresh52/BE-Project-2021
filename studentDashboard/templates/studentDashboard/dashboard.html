@@ -150,9 +150,16 @@
                                 <div class="col-12">
                                     <p class="card-title mb-0 grayTitle">Date
                                     </p>
-                                    <h5 class="mb-0">{{test.dateTime}}</h5>
+                                    <h5 class="mb-0">{{test.dateTime|date:"jS M, Y"}}</h5>
                                 </div>
                             </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <p class="card-title mb-0 grayTitle">Time
+                                    </p>
+                                    <h5 class="mb-0">{{test.dateTime|date:"g:i A"}}</h5>
+                                </div>
+                            </div>    
                             <div class="btn-container d-flex justify-content-center p-2 mt-2">
                                 <button id="cardBtn" type="submit" value="Register"
                                     class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center cardBtn"
@@ -170,7 +177,7 @@
                                 <div class="col-12">
                                     <p class="card-title mb-0 grayBottomTitle" aria-readonly="true">Posted By
                                         {{test.user.first_name}} {{test.user.last_name}}</p>
-                                    {% comment %} <p class="card-title mb-0 grayBottomTitle" aria-readonly="true">2 Days Ago</p> {% endcomment %}
+                                    <p class="card-title mb-0 grayBottomTitle" aria-readonly="true">On {{test.createdOn|date:"jS F"}}</p>
                                 </div>
                             </div>
                         </div>
