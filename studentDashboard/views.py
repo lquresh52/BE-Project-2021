@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from adminPanel.serializers import QuestionSerializer , TestSerializer
 from adminPanel.models import *
 from django.http import HttpResponse, JsonResponse
-from studentDashboard.models import  Exam_History
+from studentDashboard.models import  Exam_History, Time_Tracker
 from django.core import serializers
 
 import ast
@@ -83,9 +83,40 @@ def studentTest(request,subject_id):
 
         # pass the data and score to result page and total number of ques
         return redirect(result_page,score = score, tot_ques = tot_questions, history_id = history.id)
+  
+    elif request.is_ajax():
+        time = request.GET.get('time','')
+        print('///////////////')
+        
+
+        test_id = request.GET.get('test_id','')
+
+        test_object = Test.objects.get(id=test_id)
+
+        user = request.user
+
+    
+        if Time_Tracker.objects.filter(user=user, test_id=test_object).exists():
+            print("Yay")
+        else:
+            tracker = Time_Tracker.objects.create(user=user, test_id=test_object, time_left=time)  
+            tracker.save()
+            tp = Time_Tracker.objects.get(test_id=test_object, user=user)
+            print(tp.time_left,'*************')  
+
+
+        # resp = {
+        #     'updatedTime' : new_time,
+        # }
+        # print(new_time)
+        # response = json.dumps(resp)
+        return HttpResponse(content_type="application/json")
+
     else:
         testSubject = subject_id
         print("Test ID: ",testSubject)
+        test = Test.objects.get(id = testSubject)
+        print(test.examDuration)
         ques = Question.objects.filter(subject = subject_id)
         ques = list(ques)
         random.shuffle(ques)
@@ -98,8 +129,16 @@ def studentTest(request,subject_id):
         # print(data)
 
         
-        return render(request,"studentDashboard/student_test_page.html",context={'questions':ques,"data":data })
+        return render(request,"studentDashboard/student_test_page.html",context={'questions':ques,"data":data, "test":test })
 
+
+# def timer_update(request):
+#     if request.method == 'POST':
+#         time = request.POST.get('time','')
+#         print('///////////////')
+#         print(time)
+#         print('///////////////')
+#         return HttpResponse("H gaya")
 
 
 def result_page(request,score,tot_ques,history_id):

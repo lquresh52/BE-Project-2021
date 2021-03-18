@@ -1,10 +1,16 @@
-from django.db import models
+from django.db import models 
 from django.contrib.auth.models import User
 from adminPanel.models import Test
 import jsonfield
 
-
 # Create your models here.
+class Time_Tracker(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    test_id = models.ForeignKey(Test, on_delete=models.CASCADE,null=True)
+    time_left = models.CharField(max_length=10, null=True)
+
+        
+
 class Exam_History(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     test_id = models.ForeignKey(Test, on_delete=models.CASCADE,null=True)
@@ -15,6 +21,8 @@ class Exam_History(models.Model):
     selected_ans = jsonfield.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
 
     class Meta:
         ordering = ['-created_at',]
