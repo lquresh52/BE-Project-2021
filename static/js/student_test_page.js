@@ -5,6 +5,9 @@ function selectCorrectAns(id, divId, counter) {
     var op2 = document.getElementById('optionid-2'+counter);
     var op3 = document.getElementById('optionid-3'+counter);
     var op4 = document.getElementById('optionid-4'+counter);
+
+    // question_type will tll us if question is objective or descriptive
+    var question_type = document.getElementById('question-type-'+counter); 
     var correct_ans = document.getElementById('selected-op-'+counter);
 
     var Cans = document.getElementById('Canswer')
@@ -59,6 +62,14 @@ function selectCorrectAns(id, divId, counter) {
 
 }
 
+function descriptiveAns(id, loopCount){
+    var descAns = document.getElementById(id).value;
+    document.getElementById('selected-op-'+loopCount).value = descAns;
+    console.log(document.getElementById('selected-op-'+loopCount).value);
+}
+
+
+
 function deSelectRest(divRef) {
 
     var spans = divRef.getElementsByTagName('span');
@@ -70,3 +81,4 @@ function deSelectRest(divRef) {
         spans[0].classList.remove('greenicon')
     }
 }
+

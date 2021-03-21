@@ -21,7 +21,6 @@
 
     <link rel="stylesheet" href="{% static 'css/result.css' %}">
 
-
 </head>
 
 <body>
@@ -124,19 +123,28 @@
                 <div class="row questionShow">
                     <div class="col-12 pl-0 pr-0">
                         <div class="col-12 questionDiv">
-                            <p class="question col-12 " name="question" id="qtext">{{i.fields.question}}</p>
+                            {% if i.fields.question|length > 2000 %}
+                                <img src="{{i.fields.question}}" alt="Question IMg" height="300" width="auto"
+                                    style="display: block !important;">
+                            {% else %}
+                                <p class="question col-12 " name="question" id="qtext">{{i.fields.question}}</p>
+                            {% endif %}
                         </div>
-
+                        {% if i.fields.is_objective %}
                         <div class="row optionRow mt-5 col-12 mr-0 ml-0">
                             <!-- Option 1 -->
                             {% if i.fields.answer == 1 %}
                             <div class="col-11 col-md-5 options correctAnswer" id="optionid-1">
                                 <div class="row optionContents">
                                     <div class="col-9 col-lg-10 pl-0 pr-0">
-                                        <p id="op1" name="option1" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                            {{i.fields.option1}}
-                                        </p>
-
+                                        {% if i.fields.option1|length < 2000 %}
+                                            <p id="op1" name="option1" class="col-12 mb-0 pl-1 pr-0 optionInput">
+                                                {{i.fields.option1}}
+                                            </p>
+                                        {% else %}
+                                            <img src="{{i.fields.option1}}" alt="Question IMg" height="100px" width="auto"
+                                                style="display: block !important;">
+                                        {% endif %}
                                     </div>
                                     {% if i.fields.selected_option == 1  %}
                                         <div class="col-2 col-lg-1 pl-0 pr-0">
@@ -154,9 +162,14 @@
                             <div class="col-11 col-md-5 options " id="optionid-1">
                                 <div class="row optionContents">
                                     <div class="col-9 col-lg-10 pl-0 pr-0">
-                                        <p id="op1" name="option1" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                            {{i.fields.option1}}
-                                        </p>
+                                        {% if i.fields.option1|length < 2000 %}
+                                            <p id="op1" name="option1" class="col-12 mb-0 pl-1 pr-0 optionInput">
+                                                {{i.fields.option1}}
+                                            </p>
+                                        {% else %}
+                                            <img src="{{i.fields.option1}}" alt="Question IMg" height="100px" width="auto"
+                                                style="display: block !important;">
+                                        {% endif %}
 
                                     </div>
                                     {% if i.fields.selected_option == 1 %}
@@ -179,9 +192,14 @@
                             <div class="col-11 col-md-5 options mt-3 mt-md-0 correctAnswer" id="optionid-2">
                                 <div class="row optionContents">
                                     <div class="col-9 col-lg-10 pl-0 pr-0">
-                                        <p id="op2" name="option2" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                            {{i.fields.option2}}
-                                        </p>
+                                        {% if i.fields.option2|length < 2000 %}
+                                            <p id="op2" name="option2" class="col-12 mb-0 pl-1 pr-0 optionInput">
+                                                {{i.fields.option2}}
+                                            </p>
+                                        {% else %}
+                                            <img src="{{i.fields.option1}}" alt="Question IMg" height="100px" width="auto"
+                                            style="display: block !important;">
+                                        {% endif %}
                                         
                                     </div>
                                     {% if i.fields.selected_option  == 2 %}
@@ -200,9 +218,14 @@
                             <div class="col-11 col-md-5 options mt-3 mt-md-0" id="optionid-2">
                                 <div class="row optionContents">
                                     <div class="col-9 col-lg-10 pl-0 pr-0">
-                                        <p id="op2" name="option2" class="col-12 mb-0 pl-1 pr-0 optionInput">
-                                            {{i.fields.option2}}
-                                        </p>
+                                        {% if i.fields.option2|length < 2000 %}
+                                            <p id="op2" name="option2" class="col-12 mb-0 pl-1 pr-0 optionInput">
+                                                {{i.fields.option2}}
+                                            </p>
+                                        {% else %}
+                                            <img src="{{i.fields.option1}}" alt="Question IMg" height="100px" width="auto"
+                                            style="display: block !important;">
+                                        {% endif %}
 
                                     </div>
                                     {% if i.fields.selected_option == 2 %}
@@ -226,10 +249,15 @@
                             <div class="col-11 col-md-5 options correctAnswer" id="optionid-3">
                                 <div class="row optionContents">
                                     <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        {% if i.fields.option3|length  < 2000 %}
                                         <p id="op3" name="option3" class="col-12 mb-0 pl-1 pr-0 optionInput">
                                             {{i.fields.option3}}
                                         </p>
+                                        {% else %}
+                                        <img src="{{i.fields.option3}}" alt="Question IMg" height="100px" width="auto"
+                                        style="display: block !important;">
 
+                                        {% endif %}
                                     </div>
                                     {% if i.fields.selected_option == 3 %}
                                         <div class="col-2 col-lg-1 pl-0 pr-0">
@@ -247,9 +275,15 @@
                             <div class="col-11 col-md-5 options" id="optionid-3">
                                 <div class="row optionContents">
                                     <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        {% if i.fields.option3|length  < 2000 %}
                                         <p id="op3" name="option3" class="col-12 mb-0 pl-1 pr-0 optionInput">
                                             {{i.fields.option3}}
                                         </p>
+                                        {% else %}
+                                        <img src="{{i.fields.option3}}" alt="Question IMg" height="100px" width="auto"
+                                        style="display: block !important;">
+
+                                        {% endif %}
 
                                     </div>
                                     {% if i.fields.selected_option == 3 %}
@@ -271,9 +305,14 @@
                             <div class="col-11 col-md-5 options mt-3 mt-md-0 correctAnswer" id="optionid-4">
                                 <div class="row optionContents">
                                     <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        {% if i.fields.option4|length < 2000 %}
                                         <p id="op4" name="option4" class="col-12 mb-0 pl-1 pr-0 optionInput">
                                             {{i.fields.option4}}
                                         </p>
+                                        {% else %}
+                                        <img src="{{i.fields.option4}}" alt="Question IMg" height="100px" width="auto"
+                                        style="display: block !important;">
+                                        {% endif %}
                                     </div>
                                     {% if i.fields.selected_option == 4 %}
                                         <div class="col-2 col-lg-1 pl-0 pr-0">
@@ -291,9 +330,14 @@
                             <div class="col-11 col-md-5 options mt-3 mt-md-0" id="optionid-4">
                                 <div class="row optionContents">
                                     <div class="col-9 col-lg-10 pl-0 pr-0">
+                                        {% if i.fields.option4|length < 2000 %}
                                         <p id="op4" name="option4" class="col-12 mb-0 pl-1 pr-0 optionInput">
                                             {{i.fields.option4}}
                                         </p>
+                                        {% else %}
+                                        <img src="{{i.fields.option4}}" alt="Question IMg" height="100px" width="auto"
+                                        style="display: block !important;">
+                                        {% endif %}
                                     </div>
                                     {% if i.fields.selected_option == 4 %}
                                         <div class="col-2 col-lg-1 pl-0 pr-0">
@@ -310,6 +354,13 @@
                             {% endif %}
 
                         </div>
+                        
+                        {% else %}
+                            <p  class="question col-12 " name="question" id="qtext">{{i.fields.descriptive_answer}}</p>
+                            <p class="question col-12 " name="question" id="qtext">{{i.fields.selected_option}}</p>
+
+
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
