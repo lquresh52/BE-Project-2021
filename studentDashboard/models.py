@@ -9,6 +9,8 @@ class Time_Tracker(models.Model):
     test_id = models.ForeignKey(Test, on_delete=models.CASCADE,null=True)
     time_left = models.CharField(max_length=10, null=True)
 
+    def __str__(self):
+        return str(self.test_id)
         
 
 class Exam_History(models.Model):

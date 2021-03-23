@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load mathfilters %}
 <html lang="en">
 
 <head>
@@ -112,7 +113,7 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>Percentage:</strong> {{percentage}}% </li>
                             <li class="list-group-item"><strong>Total:</strong> {{history.test_id.totalMarks}}</li>
-                            <li class="list-group-item"><strong>Duration: </strong> {{history.test_id.examDuration}} min</li>
+                            <li class="list-group-item"><strong>Duration: </strong> {{history.test_id.examDuration|intdiv:60}} min</li>
                             <li class="list-group-item"><strong>Date:</strong> {{history.test_id.createdOn}}</li>
                         </ul>
                     </div>

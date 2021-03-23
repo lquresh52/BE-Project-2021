@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'studentDashboard',
     'adminPanel',
     'rest_framework',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [

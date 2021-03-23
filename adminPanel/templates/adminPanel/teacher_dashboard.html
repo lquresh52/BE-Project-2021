@@ -1,4 +1,5 @@
 {% load static %}
+{% load mathfilters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -215,7 +216,7 @@
                                         <p class="card-title mb-0 grayTitle">
                                             Duration</p>
                                         <div style="display: flex;">
-                                            <h5 class="mb-0">{{test.examDuration}}</h5>
+                                            <h5 class="mb-0">{{test.examDuration|intdiv:60}}</h5>
                                             <h5 class="ml-1 mb-0">min</h5>
                                         </div>
                                     </div>
@@ -244,7 +245,7 @@
                                 <div class="btn-container d-flex justify-content-center p-2 mt-2">
                                     <button id="cardBtn" type="submit" value="Register"
                                         class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center">
-                                        Start
+                                        Delete
                                         <div class="loader" style="display: none;" id="loader">
                                             <svg class="circular" viewBox="25 25 50 50">
                                                 <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
@@ -268,6 +269,19 @@
         
         </div>
 
+        <!-- Random color script for test card headers -->
+        <script>
+            window.onload = function() {
+                var listOfColors = ['#F2EA02', '#FF3300', '#00FF66', '#0062FF', '#FF0099', '#6E0DD0'];
+                var cardHeaders = document.getElementsByClassName("myCardHeader");
+                var cardBtns = document.getElementsByClassName("cardBtn");
+                for(let i = 0; i < cardHeaders.length; i++){
+                    let randomNumber = Math.floor(Math.random() * 6);
+                    cardHeaders[i].style.backgroundColor=listOfColors[randomNumber];
+                    cardBtn[i].style.backgroundColor=listOfColors[randomNumber];
+                }
+            };
+        </script>
 
 
     <!-- Popup Scripts -->

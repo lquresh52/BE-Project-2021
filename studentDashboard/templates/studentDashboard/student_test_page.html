@@ -59,7 +59,7 @@
         <!-- Contents -->
         <div class="contents">
             <div class="col-12 pl-0 pr-0">
-                <form action="" method="POST" class="col-12 pl-0 pr-0">
+                <form id="formID" action="" method="POST" class="col-12 pl-0 pr-0">
                     <input name="data" type="text" value="{{data}}" hidden>
                     {% csrf_token %}
                     {% for question in questions %}
@@ -203,7 +203,7 @@
                     {% endfor %}
                     <div class="row col-12 mt-4 mb-4 mr-0 ml-0">
                         <div class="text-center col-12">
-                            <input type="submit" id="nextBtn" value="SUBMIT" class="btn btn-outline-success " disabled>
+                            <input type="submit" id="nextBtn" value="SUBMIT" class="btn btn-outline-success " onclick="submitFunc()" disabled>
                         </div>
                     </div>
                 </form>
@@ -239,67 +239,8 @@
     </div>
 
 
-    <!-- <script>
-        function tableIncrement() {
-
-            var question = 20
-            var tableRow = document.getElementById("tableRow")
-            var one = document.getElementById("one")   
-
-            for(var i=1;i<(question/4);i++){
-                one.innerHTML = "<tr> <td > 5 </td> <td> 6 </td> <td> 7 </td> <td> 8 </td> </tr>"
-                console.log(i);
-                
-            }
-
-            // var tables = document.getElementsByTagName('table');
-            // var table = tables[tables.length - 1];
-            // var rows = table.column;
-
-            // for (var i = 0, td; i < rows.length; i++) {
-            //     td = document.createElement('td');
-            //     td.appendChild(document.createTextNode(i + 1));
-            //     rows[i].insertBefore(td, rows[i].firstChild);
-            // }
-        }
-    </script> -->
-
-    <!-- For WebCam -->
-    <!-- <script>
-        var video = document.querySelector("#videoElement");
-
-        if (navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(function (stream) {
-                    video.srcObject = stream;
-                })
-                .catch(function (error) {
-                    console.log("Something went wrong!");
-                });
-        }
-    </script> -->
-
     <script src="../../../static/js/student_test_page.js"></script>
 
-    {% comment %}
-    <script type="text/javascript">
-        window.onload = maxWindow;
-
-        function maxWindow() {
-            window.moveTo(0, 0);
-            top.window.resizeTo(screen.availWidth, screen.availHeight);
-            if (document.all) {
-
-            }
-
-            else if (document.layers || document.getElementById) {
-                if (top.window.outerHeight < screen.availHeight || top.window.outerWidth < screen.availWidth) {
-                    top.window.outerHeight = screen.availHeight;
-                    top.window.outerWidth = screen.availWidth;
-                }
-            }
-        }
-    </script> {% endcomment %}
 
 
     <!-- Bootstrap Scripts -->
@@ -314,6 +255,10 @@
         crossorigin="anonymous"></script>
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>    
+
+    <!-- Auto Submit Script -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
     <!-- This script is to disable the inspect element -->
     {% comment %}
@@ -363,6 +308,36 @@
 
     </script> {% endcomment %}
 
+    <script>
+        $('#nextBtn').on('click',function(e){
+            e.preventDefault();
+            var form = $(this).parents('form');
+            Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Submit it!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                'Submitted!',
+                'Your test has been submitted.',
+                'success'
+                )
+                window.setTimeout(function submitForm(){
+                        form.submit();
+                },3000)
+            }
+            })
+        });
+        
+            
+
+    </script>
+
     {% comment %} Ajax code to Updated Timer {% endcomment %}
     <script>
         window.setInterval(
@@ -382,21 +357,48 @@
                 })
             }
             
-            ,30000)
+            ,10000)
     </script>
 
     {% comment %} Timer Logic {% endcomment %}
     <script>
-        let timeInMins = {{test.examDuration}}
+        function autoSubmit(){
+            var form = $('#formID');
+            Swal.fire(
+                'Time Up!',
+                'Your test has been submitted.',
+                'successfully'
+                )
+            window.setTimeout(function submitForm(){
+                form.submit();
+            },4000)    
+            
+        }
+        
+
+        function makeMeTwoDigits(n){
+            return (n < 10 ? "0" : "") + n;
+        }
+        
+        {% if tracker_exists %}
+            let timeInSecs = parseInt({{tracker_time}})
+        {% else %}
+            let timeInSecs = parseInt({{test.examDuration}})
+        {% endif %}
+
         
         //Time Calculation
-        var hours   = Math.floor(timeInMins/ 60);
-        var minutes = Math.floor((timeInMins - ((hours * 3600)) / 60));
-        var seconds = Math.floor((timeInMins * 60) - (hours * 3600) - (minutes * 60));
-        seconds=59;
-        --minutes;
+        var hours   = Math.floor(timeInSecs/ 3600);
+        timeInSecs%=3600;
+        var minutes = Math.floor(timeInSecs / 60);
+        
+        var seconds = timeInSecs % 60;
+        //seconds=59;
+        //--minutes;
         var x = setInterval(function() {
-            document.getElementById("timer").innerHTML =hours + " : " + minutes + " : " + seconds;
+
+            
+            document.getElementById("timer").innerHTML =makeMeTwoDigits(hours) + " : " +makeMeTwoDigits(minutes) + " : " +makeMeTwoDigits(seconds);
             --seconds;
             if (seconds < 0) {
                 if(minutes > 0){
@@ -413,28 +415,14 @@
                     }
                 }
             }
-            // }if(minutes<0){
-            //     if(hours > 0){
-            //             hours--;
-            //             minutes = 59;
-            //         } else{
-            //             hours=0;
-            //             if(minutes==0){
-            //                 minutes=0;
-            //             }else{
-            //                 minutes--;
-            //             }
-            //         }
-                    
-                 
-            // }
+           
             if(hours == 0){
                 hours = 0;
             }
             if(hours==0 && minutes == 0 && seconds == 0){
                 document.getElementById("timer").innerHTML = "00:00:00";
                 clearInterval(x);
-                 alert("Test Over")
+                autoSubmit()
             }
         }, 1000);
     </script>

@@ -1,4 +1,5 @@
 {% load static %}
+{% load mathfilters %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -127,7 +128,7 @@
                                     <p class="card-title mb-0 grayTitle">
                                         Duration</p>
                                     <div style="display: flex;">
-                                        <h5 class="mb-0">{{test.examDuration}}</h5>
+                                        <h5 class="mb-0">{{test.examDuration|intdiv:60}}</h5>
                                         <h5 class="ml-1 mb-0">min</h5>
                                     </div>
                                 </div>
