@@ -28,10 +28,11 @@ def questionForm(request):
         totalQuestions = request.POST.get('totalQuestions')
         totalMarks = request.POST.get('totalMarks')
         dateTime = request.POST.get('dateTime')
+        test_end_hours = request.POST.get('enddateTime') 
         examDuration = int(request.POST.get('examDuration'))*60
        # negativeMarksInput = request.POST.get('negativeMarksInput')
         #print("Neg mark  ",negativeMarksInput)
-        quiz = Test(user=user,subjectName=subjectName,branch_field=branch,year_field=year,totalQuestions=totalQuestions,totalMarks=totalMarks,dateTime=dateTime,examDuration=examDuration)
+        quiz = Test(user=user,subjectName=subjectName,branch_field=branch,year_field=year,totalQuestions=totalQuestions,totalMarks=totalMarks,dateTime=dateTime,test_end_hours=enddateTime,examDuration=examDuration)
       #  print("Neg mark 2 ",negativeMarksInput)
         quiz.save()
         # tp = Test.objects.get(pk=quiz.pk)

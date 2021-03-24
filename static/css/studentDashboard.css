@@ -329,7 +329,7 @@ a{
     font-weight: 500; 
     font-size: 15px;
 }
-#cardBtn{
+.cardBtn{
     width: 40%;
     font-size: 20px;
     font-family: 'Roboto', sans-serif;
@@ -341,7 +341,7 @@ a{
     border: none; 
     color: white;
 }
-#cardBtn:focus{
+.cardBtn:focus{
     box-shadow: none;
     outline: none;
     -webkit-appearance:none;

@@ -6,7 +6,7 @@ class UserRegistration(models.Model):
     phone_number = models.IntegerField()
     isTeacher = models.BooleanField(default=False)
     college_name = models.CharField(max_length=200)
-    branch = models.CharField(max_length=100, null=True)
+    branch = models.CharField(max_length=100, null=True,blank=True)
     year = models.CharField(max_length=100,null=True)
 
     def __str__(self):

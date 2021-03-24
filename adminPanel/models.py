@@ -7,11 +7,12 @@ from datetime import datetime
 class Test(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     subjectName = models.CharField(max_length=200)
-    branch_field = models.CharField(max_length=100,null=True)
+    branch_field = models.CharField(max_length=100,null=True,blank=True)
     year_field = models.CharField(max_length=100,null=True)
     totalQuestions = models.IntegerField()
     totalMarks = models.IntegerField()
     dateTime = models.DateTimeField(max_length=100)
+    test_end_hours = models.IntegerField()
     examDuration = models.IntegerField()
     # negativeMarksInput = models.IntegerField()
     createdOn = models.DateTimeField(auto_now_add=True)
@@ -22,7 +23,7 @@ class Test(models.Model):
         ordering = ['-createdOn',]
 
     def __str__(self):
-        return self.subjectName
+        return f'{self.subjectName} - {self.branch_field} - {self.year_field}'
 
 class Question(models.Model):
     subject = models.ForeignKey(Test,on_delete=models.CASCADE,null=True)

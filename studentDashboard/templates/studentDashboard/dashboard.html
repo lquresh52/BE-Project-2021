@@ -86,12 +86,11 @@
         <div class="contents">
             <div class="row col-12 myRow m-0">
                 {% for test in tests %}
-                <div class="col-12 col-sm-10 col-md-4 col-xl-3 ml-auto mr-auto">
+                <div class="col-12 col-sm-10 col-md-4 col-xl-3 ml-auto mr-auto mt-5">
                     <div class="card myCard">
                         <div class="card-header myCardHeader">
-                            {% comment %} <p class="card-title mb-0 myCardTitle">Starts In
-                            </p>
-                            <p class="mb-0 myCardCounter">10:40:10</p> {% endcomment %}
+                            <p class="card-title mb-0 myCardTitle">Starts In</p>
+                            <p class="mb-0 myCardCounter" id="demo-{{forloop.counter}}">10:40:10</p>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -103,9 +102,21 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col-md-7 col-7">
-                                    <p class="card-title mb-0 grayTitle">Type
+                                    <p class="card-title mb-0 grayTitle">Year-Branch
                                     </p>
-                                    <h5 class="mb-0">Unit Test</h5>
+                                    <h5 class="mb-0">
+                                        {% if test.year_field != null %}
+                                        {{test.year_field}} - 
+                                        {% else %}
+                                        -
+                                        {% endif %}
+
+                                        {% if test.branch_field != null %}
+                                        {{test.branch_field}}
+                                        {% else %}
+                                        -
+                                        {% endif %}
+                                    </h5>
                                 </div>
                                 <div class="col-md-5 col-5">
                                     <p class="card-title mb-0 grayTitle">
@@ -143,11 +154,17 @@
                                     </p>
                                     <h5 class="mb-0">{{test.dateTime|date:"g:i A"}}</h5>
                                 </div>
-                            </div>    
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <p class="card-title mb-0 grayTitle">Test ends in</p>
+                                    <h5 class="mb-0">{{test.test_end_hours}} Hours</h5>
+                                </div>
+                            </div>   
                             <div class="btn-container d-flex justify-content-center p-2 mt-2">
-                                <button id="cardBtn" type="submit" value="Register"
-                                    class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center cardBtn"
-                                    onclick="OpenPopUpwindow('{{test.id}}')">
+                                <button id="cardBtn-{{forloop.counter}}" type="submit" value="Register"
+                                    class="cardBtn btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center cardBtn"
+                                    onclick="OpenPopUpwindow('{{test.id}}')" disabled>
                                     Start
                                     <div class="loader" style="display: none;" id="loader">
                                         <svg class="circular" viewBox="25 25 50 50">
@@ -183,7 +200,7 @@
             for(let i = 0; i < cardHeaders.length; i++){
                 let randomNumber = Math.floor(Math.random() * 6);
                 cardHeaders[i].style.backgroundColor=listOfColors[randomNumber];
-                cardBtn[i].style.backgroundColor=listOfColors[randomNumber];
+                cardBtns[i].style.backgroundColor=listOfColors[randomNumber];
             }
         };
     </script>
@@ -195,11 +212,69 @@
             var url = "{{ request.path }}studentTest/" + urlName + "/";
             var windowFeatures = "fullscreen=yes, resizable=no, scrollbars=yes , toolbar = no, menubar = no, location = no, directories = no , status = no";
             window.open(url, 'popUpWindow',`fullscreen=1, resizable=0, scrollbars=1 , toolbar=0, menubar=0, location=no, directories=no , status=no, width=${screen.width},height=${screen.height}`);
-           
         }
             
     </script>
 
+    <script>
+		function createCountDown(elementId, date, btn, endHours) {
+			// Set the date we're counting down to
+			var countDownDate = new Date(date).getTime();
+			console.log('countDownDate : '+countDownDate);
+			// Update the count down every 1 second
+			var x = setInterval(function () {
+
+				// Get todays date and time
+				var now = new Date().getTime();
+
+				// Find the distance between now an the count down date
+				var distance = countDownDate - now;
+
+				// Time calculations for days, hours, minutes and seconds
+				var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+				var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+				var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+				// Display the result in the element with id="demo"
+				document.getElementById(elementId).innerHTML = days + "d " + hours + "h "
+					+ minutes + "m " + seconds + "s";
+
+				if (distance < 0) {
+					clearInterval(x);
+					var dates = new Date(date);
+
+                    dates.setSeconds(parseInt(endHours) * 60 * 60); // 20 days = 1728000 seconds
+					console.log("One added to original date : " + dates.getTime());
+					var nows = new Date();
+					if (nows.getTime() == dates.getTime()) {
+						location.reload();
+					}
+					//console.log("One added to original date : " + nows.getTime());
+					if (nows.getTime() > dates.getTime()) {
+						document.getElementById(elementId).innerHTML = 'TEST FINISHED';
+						document.getElementById(btn).disabled = true;
+					} else {
+						//document.getElementById(elementId).innerHTML = '<b><p style="color:green;">TEST STARTED IS ACTIVE FOR 96 HOUR.</p></b>';
+						document.getElementById(elementId).innerHTML = 'TEST IS LIVE';
+						document.getElementById(btn).disabled = false;
+					}
+
+
+				}
+			}, 1000);
+		}
+
+
+        {% for test in tests %}
+            var date{{forloop.counter}} = '{{test.dateTime}}';
+            //console.log(date{{forloop.counter}});
+            var elementId = 'demo-'+{{forloop.counter}};
+            var cardBtn = 'cardBtn-'+{{forloop.counter}};
+            createCountDown(elementId, '{{test.dateTime |safe}}', cardBtn, '{{test.test_end_hours}}');
+        {% endfor %}
+
+	</script>
 
 
     <!-- Bootstrap Scripts -->

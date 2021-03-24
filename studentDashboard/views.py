@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from adminPanel.serializers import QuestionSerializer , TestSerializer
 from adminPanel.models import *
+from accounts.models import *
 from django.http import HttpResponse, JsonResponse
 from studentDashboard.models import  Exam_History, Time_Tracker
 from django.core import serializers
@@ -21,14 +22,15 @@ avg_sims = []
 
 @login_required(login_url='/login/')
 def dashboard(request):
+
+    user_acc = UserRegistration.objects.get(user=request.user)
+    print(user_acc.year,user_acc.branch)
     historys = Exam_History.objects.filter(user=request.user,is_test_given=True)
     history_ids = [ history.test_id.id for history in historys]
     print(history_ids)
-    tests = Test.objects.filter(quiz_completed=True).exclude(id__in=history_ids)
-    #print(tests)
-    # for test in tests:
-    #     print("test",test)
-    # print("HIST",history)
+    tests = Test.objects.filter(quiz_completed=True,year_field=user_acc.year,branch_field=user_acc.branch).exclude(id__in=history_ids)
+    for test in tests:
+        print(test.dateTime)
     return render(request, 'studentDashboard/dashboard.html',{'tests':tests})
 
 
