@@ -21,6 +21,7 @@ class Exam_History(models.Model):
     right_ans = models.IntegerField()
     wrong = models.IntegerField()
     selected_ans = jsonfield.JSONField()
+    is_test_given = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

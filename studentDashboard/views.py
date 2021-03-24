@@ -20,8 +20,14 @@ avg_sims = []
 
 @login_required(login_url='/login/')
 def dashboard(request):
-    tests = Test.objects.filter(quiz_completed=True)
+    historys = Exam_History.objects.filter(user=request.user,is_test_given=True)
+    history_ids = [ history.test_id.id for history in historys]
+    print(history_ids)
+    tests = Test.objects.filter(quiz_completed=True).exclude(id__in=history_ids)
     #print(tests)
+    # for test in tests:
+    #     print("test",test)
+    # print("HIST",history)
     return render(request, 'studentDashboard/dashboard.html',{'tests':tests})
 
 
@@ -127,8 +133,17 @@ def studentTest(request,subject_id):
 
         # TODO : First need to check if user has already given the test or not if not create new Exam_history obj else update in the old record
 
-        # soring in Exam history model that user has given this test    
-        history = Exam_History.objects.create(user=request.user, test_id=test, score=score, no_of_que=tot_questions, right_ans=score, wrong=(tot_questions-score), selected_ans=history_data)
+        # soring in Exam history model that user has given this test
+        try:
+            history = Exam_History.objects.get(user=request.user, test_id=test)
+            print("PREVHIST",history)
+            history.score = score
+            history.right_ans = score
+            history.wrong=(tot_questions-score)
+            history.selected_ans=history_data
+            history.save()
+        except:
+            history = Exam_History.objects.create(user=request.user, test_id=test, score=score, no_of_que=tot_questions, right_ans=score, wrong=(tot_questions-score), selected_ans=history_data, is_test_given=True)
         #print('------ history data stored id  ------')
         #print(history.id)
         #print('---------------')
@@ -193,12 +208,12 @@ def studentTest(request,subject_id):
 #         return HttpResponse("H gaya")
 
 
-def result_page(request,score,tot_ques,history_id):
-
-    history = Exam_History.objects.get(id=history_id)
+def result_page(request,score,history_id,tot_ques,):
+    print(score,history_id,tot_ques)
+    history = Exam_History.objects.get(user=request.user,id= history_id)
     selected_op = history.selected_ans
     #print(selected_op)
-    #print(history)
+    print("HISTORY",history)
 
     questions = Question.objects.filter(subject = history.test_id.id)
     ques = list(questions)
