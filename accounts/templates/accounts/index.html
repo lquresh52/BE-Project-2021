@@ -188,7 +188,13 @@
               </button>
             </a>
           </div>
+
           <p class="font-small dark-grey-text text-right d-flex justify-content-center pt-0 mt-3 mb-0 " id="theOrText" style="font-family: 'Roboto', sans-serif;">OR</p>
+          {% if errormsg|length > 0 %}
+            <p id="loginErrorMsg" class="col-sm-12 col-md-6" style="text-align:center; font-family: 'Roboto', sans-serif; display: block;">{{errormsg}}</p>
+          {% endif %}
+
+
           <form action="{% url 'signup' %}" method="POST" id="myCustomForm" class="needs-validation col-12 p-0" style="font-family: 'Roboto', sans-serif;" novalidate>
             {% csrf_token %}
             <div class="form-row">
@@ -227,7 +233,7 @@
             </div>
 
             <div class="form-row">
-              <div class="col-sm-12 field">
+              <div class="col-6 field">
                 <input type="tel" class="form-control" id="validationPhone" name="phoneNumber" placeholder=" " pattern="[0-9]{10}" required>
                 <label for="validationPhone" class="label">Phone</label>
                 <div class="invalid-feedback">
@@ -237,23 +243,64 @@
                   Looks good!
                 </div>
               </div>
-            </div>
 
-            {% comment %} College Name {% endcomment %}
-              <div class="form-row">
-              <div class="col-sm-12 field">
-                <input type="text" name="collegeName" class="form-control" id="validationEmail" placeholder=" " required>
-                <label for="validationEmail" class="label">College Name</label>
+              <div class="col-6 field">
+                <input type="tel" class="form-control" id="validationPhone" name="prn_number" placeholder=" " pattern="[0-9A-Za-z]{9}" required>
+                <label for="validationPhone" class="label">PRN No.</label>
                 <div class="invalid-feedback">
-                  Please enter your College Name
+                  Please enter a valid PRN Number.
                 </div>
                 <div class="valid-feedback">
                   Looks good!
                 </div>
               </div>
+
             </div>
 
+            {% comment %} College Name {% endcomment %}
+              <div class="form-row">
+              <div class="col-sm-12 field">
+                <div class="form-group">
+                    <select class="custom-select" name="collegeName" required>
+                      <option id="collegeName" value="KJCOEMR"> KJCOEMR </option>
+                    </select>
+                  <div class="invalid-feedback">Example invalid custom select feedback</div>
+                </div>
+              </div>
+            </div>
 
+            {% comment %} Branch and Year {% endcomment %}
+            <div class="form-row">
+              <div class="col-6 field">
+                <div class="form-group">
+                    <select class="custom-select" oninput="selectYear()" id="yearSelect" name="yearSelect" required>
+                      <option value="" disabled>Year</option>
+                      <option id="FE" value="FE"> FE </option>
+                      <option id="SE" value="SE"> SE </option>
+                      <option id="TE" value="TE"> TE </option>
+                      <option id="BE" value="BE"> BE </option>
+                    </select>
+                  <div class="invalid-feedback">Example invalid custom select feedback</div>
+                </div>
+              </div>
+              <div class="col-6 field">
+                <div class="form-group" id="branchDiv" style="display: none;">
+                    <select class="custom-select form-control-lg" name="branchSelect" required>
+                      <option value="" disabled>Branch</option>
+                      <option value="Computer"> Computer </option>
+                      <option value="Mechanical"> Mechanical </option>
+                      <option value="Civil"> Civil </option>
+                      <option value="Electrical"> Electrical </option>
+                      <option value="ENTC"> ENTC </option>
+                    </select>
+                  <div class="invalid-feedback">Example invalid custom select feedback</div>
+                </div>
+              </div>
+
+
+            </div>
+
+            {% comment %} Password {% endcomment %}
             <div class="form-row">
               <div class="col-sm-12 field">
                 <input type="password" class="form-control" name="password" id="validationPassword" placeholder=" " required>
@@ -325,6 +372,14 @@
   </script>
 
   <script>
+    {% if signUpModel %}
+      $('#signUpModalForm').modal('show')
+    {% else %}
+      $('#signUpModalForm').modal('hide')
+    {% endif %}
+  </script>
+
+  <script>
     $(document).ready(function(){
       // ------------ Check passwords similarity --------------
       $('#validationPassword, #validationConfirmPassword').on('keyup', function () {
@@ -358,9 +413,22 @@
       });
     }); 
   </script>
+  
   <script>
-     
+    function selectYear(){
+      var select = document.getElementById("yearSelect")
+      var branch = document.getElementById("branchDiv")
+      
+      if(select.value == 'FE'){
+        branch.style.display = "none"
+      }
+      else{
+        branch.style.display = "block"
+      }
+
+    }
   </script>
+
 </body>
 
 </html>

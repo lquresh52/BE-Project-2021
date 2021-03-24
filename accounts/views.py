@@ -25,13 +25,15 @@ def signUp(request):
                 user = User.objects.get(email= request.POST.get('email'))
                 print("TRY WALA UDSER _______________",user)
                 print("Galat")
-                return render(request,'accounts/index.html')
+                errormsg = 'Account Already Exist.'
+                return render(request,'accounts/index.html',{'signUpModel':'true', 'errormsg':errormsg})
             except:
                 user = User.objects.create_user(username=request.POST.get('email'), email=request.POST.get('email'),password=request.POST.get('password'), first_name=request.POST.get('firstName'), last_name=request.POST.get('lastName'))
                 phone_number = request.POST.get('phoneNumber')
                 user.is_active = False
                 user.save()
-                actualUserRegister = UserRegistration(user=user, phone_number=phone_number)
+                print(request.POST.get('collegeName'),request.POST.get('branchSelect'), request.POST.get('yearSelect'))
+                actualUserRegister = UserRegistration(user=user, phone_number=phone_number,college_name = request.POST.get('collegeName'),branch = request.POST.get('branchSelect'),year = request.POST.get('yearSelect'))
                 actualUserRegister.save()
                 print("Registered")
                 current_site = get_current_site(request)

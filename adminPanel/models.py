@@ -7,6 +7,8 @@ from datetime import datetime
 class Test(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     subjectName = models.CharField(max_length=200)
+    branch_field = models.CharField(max_length=100,null=True)
+    year_field = models.CharField(max_length=100,null=True)
     totalQuestions = models.IntegerField()
     totalMarks = models.IntegerField()
     dateTime = models.DateTimeField(max_length=100)

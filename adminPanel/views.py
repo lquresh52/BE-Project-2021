@@ -8,6 +8,13 @@ question_increment = 0
 def teacherHome(request):
     tests = Test.objects.filter(quiz_completed=True)
     print(tests)
+
+    if request.method == 'POST':
+        test_id = request.POST.get('testIdHidden')
+        print(test_id)
+        delete_test = Test.objects.filter(id=test_id)
+        delete_test.delete()
+
     return render(request,'adminPanel/teacher_dashboard.html',{'tests':tests})
 
 @login_required(login_url='/login/')
@@ -16,13 +23,15 @@ def questionForm(request):
     print(user)
     if request.method == 'POST':
         subjectName = request.POST.get('subjectName')
+        branch = request.POST.get('branchSelect')
+        year = request.POST.get('yearSelect')
         totalQuestions = request.POST.get('totalQuestions')
         totalMarks = request.POST.get('totalMarks')
         dateTime = request.POST.get('dateTime')
         examDuration = int(request.POST.get('examDuration'))*60
        # negativeMarksInput = request.POST.get('negativeMarksInput')
         #print("Neg mark  ",negativeMarksInput)
-        quiz = Test(user=user,subjectName=subjectName,totalQuestions=totalQuestions,totalMarks=totalMarks,dateTime=dateTime,examDuration=examDuration)
+        quiz = Test(user=user,subjectName=subjectName,branch_field=branch,year_field=year,totalQuestions=totalQuestions,totalMarks=totalMarks,dateTime=dateTime,examDuration=examDuration)
       #  print("Neg mark 2 ",negativeMarksInput)
         quiz.save()
         # tp = Test.objects.get(pk=quiz.pk)

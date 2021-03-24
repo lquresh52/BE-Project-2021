@@ -82,6 +82,36 @@
                     </div>
                 </div>
             </div>
+
+             {% comment %} Branch and Year {% endcomment %}
+            <div class="form-row">
+              <div class="col-6 field">
+                <div class="form-group">
+                    <select class="custom-select" oninput="selectYear()" id="yearSelect" name="yearSelect" required>
+                      <option value="" disabled>Year</option>
+                      <option id="FE" value="FE"> FE </option>
+                      <option id="SE" value="SE"> SE </option>
+                      <option id="TE" value="TE"> TE </option>
+                      <option id="BE" value="BE"> BE </option>
+                    </select>
+                  <div class="invalid-feedback">Example invalid custom select feedback</div>
+                </div>
+              </div>
+              <div class="col-6 field">
+                <div class="form-group" id="branchDiv" style="display: none;">
+                    <select class="custom-select form-control-lg" name="branchSelect" required>
+                      <option value="" disabled>Branch</option>
+                      <option value="Computer"> Computer </option>
+                      <option value="Mechanical"> Mechanical </option>
+                      <option value="Civil"> Civil </option>
+                      <option value="Electrical"> Electrical </option>
+                      <option value="ENTC"> ENTC </option>
+                    </select>
+                  <div class="invalid-feedback">Example invalid custom select feedback</div>
+                </div>
+              </div>
+            </div>
+
             <div class="form-row">
                 <div class="col-sm-6 field">
                     <input type="tel" class="form-control" name="totalQuestions" id="validationTotalQuestions"
@@ -194,11 +224,13 @@
                     <div class="col-12 col-sm-10 col-md-4 col-xl-3 ml-auto mr-auto">
                         <div class="card myCard">
                             <div class="card-header myCardHeader">
-                                <p class="card-title mb-0 myCardTitle">Starts In
-                                </p>
-                                <p class="mb-0 myCardCounter">10:40:10</p>
+                            {% comment %} <p class="card-title mb-0 myCardTitle">Starts In
+                            </p>
+                            <p class="mb-0 myCardCounter">10:40:10</p> {% endcomment %}
                             </div>
                             <div class="card-body">
+                                <form id="formID-{{forloop.counter}}" method="post">
+                                {% csrf_token %}
                                 <div class="row">
                                     <div class="col-12">
                                         <p class="card-title mb-0 grayTitle">
@@ -208,9 +240,14 @@
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-md-7 col-7">
-                                        <p class="card-title mb-0 grayTitle">Type
+                                        <p class="card-title mb-0 grayTitle">Year - Branch
                                         </p>
-                                        <h5 class="mb-0">Unit Test</h5>
+                                        {% if test.year_field != 'FE' %}
+                                            <h5 class="mb-0" id="">{{ test.year_field }} - {{ test.branch_field }}</h5>
+                                        {% else %}
+                                            <h5 class="mb-0" id="">{{ test.year_field }}</h5>
+                                        {% endif %} 
+                                        
                                     </div>
                                     <div class="col-md-5 col-5">
                                         <p class="card-title mb-0 grayTitle">
@@ -239,27 +276,26 @@
                                     <div class="col-12">
                                         <p class="card-title mb-0 grayTitle">Date
                                         </p>
-                                        <h5 class="mb-0">{{test.dateTime}}</h5>
+                                        <h5 class="mb-0">{{test.dateTime|date:"jS M, Y"}}</h5>
                                     </div>
-                                </div>
-                                <div class="btn-container d-flex justify-content-center p-2 mt-2">
-                                    <button id="cardBtn" type="submit" value="Register"
-                                        class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center">
-                                        Delete
-                                        <div class="loader" style="display: none;" id="loader">
-                                            <svg class="circular" viewBox="25 25 50 50">
-                                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3"
-                                                    stroke-miterlimit="10" />
-                                            </svg>
-                                        </div>
-                                    </button>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-12">
-                                        <p class="card-title mb-0 grayBottomTitle" aria-readonly="true">Posted By {{test.user.first_name}} {{test.user.last_name}}</p>
-                                        <p class="card-title mb-0 grayBottomTitle" aria-readonly="true">2 Days Ago</p>
+                                        <p class="card-title mb-0 grayTitle">Time
+                                        </p>
+                                        <h5 class="mb-0">{{test.dateTime|date:"g:i A"}}</h5>
+                                    </div>
+                                </div> 
+                                <div class="btn-container d-flex justify-content-center p-2 mt-2">
+                                    <input type="text" name="testIdHidden" value={{test.id}} hidden>
+                                    <input id="cardBtn-{{forloop.counter}}" onclick="testDeletePopup(event,'cardBtn-{{forloop.counter}}','{{forloop.counter}}')" type="button" value="Delete" class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center cardBtn">
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-12">
+                                        <p class="card-title mb-0 grayBottomTitle" aria-readonly="true">Posted On {{test.createdOn|date:"jS F"}}</p>
                                     </div>
                                 </div>
+                            </form>
                             </div>
                         </div>
                     </div>
@@ -268,6 +304,9 @@
         </div>
         
         </div>
+
+    <!-- Auto Submit Script -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
         <!-- Random color script for test card headers -->
         <script>
@@ -278,10 +317,50 @@
                 for(let i = 0; i < cardHeaders.length; i++){
                     let randomNumber = Math.floor(Math.random() * 6);
                     cardHeaders[i].style.backgroundColor=listOfColors[randomNumber];
-                    cardBtn[i].style.backgroundColor=listOfColors[randomNumber];
+                    cardBtns[i].style.backgroundColor=listOfColors[randomNumber];
                 }
             };
         </script>
+
+        
+  <script>
+    function selectYear(){
+      var select = document.getElementById("yearSelect")
+      var branch = document.getElementById("branchDiv")
+      
+      if(select.value == 'FE'){
+        branch.style.display = "none"
+      }
+      else{
+        branch.style.display = "block"
+      }
+
+    }
+
+    function testDeletePopup(e,del_id, counter){
+        e.preventDefault();
+        var form = $('#formID-'+counter);
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+            )
+            form.submit()
+        }
+        })
+    }
+
+  </script>
 
 
     <!-- Popup Scripts -->

@@ -6,6 +6,7 @@ from django.http import HttpResponse, JsonResponse
 from studentDashboard.models import  Exam_History, Time_Tracker
 from django.core import serializers
 
+
 import ast
 import random
 import json
@@ -117,11 +118,7 @@ def studentTest(request,subject_id):
                     score += 1 
                 print(percentage_of_similarity, score)
 
-                # correct_ans = data[i]['fields']['descriptive_answer']
-                
-                # if correct_ans == selected_op[i]:
-    
-                #     score += 1
+              
             
             
 
@@ -154,7 +151,7 @@ def studentTest(request,subject_id):
     elif request.is_ajax():
         time = request.GET.get('time','')
         print('///////////////')
-        
+        print(time)
 
         test_id = request.GET.get('test_id','')
 
@@ -164,7 +161,20 @@ def studentTest(request,subject_id):
 
     
         if Time_Tracker.objects.filter(user=user, test_id=test_object).exists():
-            print("Yay")
+            tracker = Time_Tracker.objects.get(user=user,test_id = test_object)
+            
+            tracker_time = time.split(':')
+            print(tracker_time)
+            hour = tracker_time[0].strip()
+            minute = tracker_time[1].strip()
+            sec = tracker_time[2].strip()
+
+            print("Minute",minute)
+            updated_time = int(hour) * 3600 + int(minute) * 60 + int(sec)
+            
+            tracker.time_left = updated_time
+            
+            tracker.save()
         else:
             tracker = Time_Tracker.objects.create(user=user, test_id=test_object, time_left=time)  
             tracker.save()
@@ -183,7 +193,17 @@ def studentTest(request,subject_id):
         testSubject = subject_id
         print("Test ID: ",testSubject)
         test = Test.objects.get(id = testSubject)
-        print(test.examDuration)
+
+        # Time Tracker Object
+        tracker_obj = Time_Tracker.objects.filter(user= request.user , test_id=test).exists()
+        
+        print("Exists: ",tracker_obj)
+
+        if tracker_obj:
+            tracker_time_left = Time_Tracker.objects.get(user=request.user, test_id=test).time_left
+        else:
+            tracker_time_left = None
+
         ques = Question.objects.filter(subject = subject_id)
         ques = list(ques)
         random.shuffle(ques)
@@ -196,7 +216,7 @@ def studentTest(request,subject_id):
         # #print(data)
 
         
-        return render(request,"studentDashboard/student_test_page.html",context={'questions':ques,"data":data, "test":test })
+        return render(request,"studentDashboard/student_test_page.html",context={'questions':ques,"data":data, "test":test,"tracker_exists":tracker_obj,"tracker_time": tracker_time_left })
 
 
 # def timer_update(request):

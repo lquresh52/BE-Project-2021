@@ -25,6 +25,7 @@
             position: absolute;
         }
     </style>
+
 </head>
 
 <body>
@@ -59,7 +60,7 @@
         <!-- Contents -->
         <div class="contents">
             <div class="col-12 pl-0 pr-0">
-                <form id="formID" action="" method="POST" class="col-12 pl-0 pr-0">
+                <form id="formID" action="" method="POST" class="col-12 pl-0 pr-0" >
                     <input name="data" type="text" value="{{data}}" hidden>
                     {% csrf_token %}
                     {% for question in questions %}
@@ -203,7 +204,7 @@
                     {% endfor %}
                     <div class="row col-12 mt-4 mb-4 mr-0 ml-0">
                         <div class="text-center col-12">
-                            <input type="submit" id="nextBtn" value="SUBMIT" class="btn btn-outline-success " onclick="submitFunc()" disabled>
+                            <input type="submit" id="nextBtn" value="SUBMIT" class="btn btn-outline-success " disabled>
                         </div>
                     </div>
                 </form>
@@ -307,6 +308,49 @@
         }
 
     </script> {% endcomment %}
+    <script>
+        function FullScreenWindow() { 
+        
+            // DOM element which needs to enter fullscreen mode
+            document.documentElement.requestFullscreen()
+            .then(function() {
+                // element has entered fullscreen mode successfully
+            })
+            .catch(function(error) {
+                // element could not enter fullscreen mode
+                // error message
+                console.log(error.message);
+            });
+
+        }
+
+        function InfoPopUp(){
+            let instruction = '1) Students fail to appear for exam within specified timings.\n2) Student do not appear for both the papers.\n3) Student appear for exam late / face lack of time.\n4) Student ignores instructions and rules.\n5) Student who do not keep backup of answers.\n6) Student submit short answers or short assignments (Plagiarism : Student copy answers from books, ebooks, external sources or internet etc.) or who receives less score as mentioned below.\n7) Student do not submit details from www.dlc.co.in/form/ifs-29.aspx after appearing for both the papers.\n8) Student face internet of power failure problems.\n9) Un-necessary communications / Arguments, or plagiarism against management decisions. '
+            Swal.fire({
+            title: '<strong>Test Instruction</strong>',
+            icon: 'info',
+            html: instruction,
+            showCloseButton: true,
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonText:
+                '<i class="fa fa-thumbs-up"></i> Start!',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            
+            }).then((result) => {
+            if (result.isConfirmed) {
+                FullScreenWindow()
+                timerLogic()
+            }
+            else{
+                window.close()
+            }
+            })
+        }
+
+        InfoPopUp()
+    
+    </script>
 
     <script>
         $('#nextBtn').on('click',function(e){
@@ -330,11 +374,51 @@
                 window.setTimeout(function submitForm(){
                         form.submit();
                 },3000)
+                window.close()
             }
             })
         });
         
+        document.addEventListener('fullscreenchange', function() {
             
+                var full_screen_element = document.fullscreenElement;
+                if(full_screen_element !== null)
+                    console.log('Page has entered fullscreen mode');
+                else
+                    console.log('Page has exited fullscreen mode');
+                    const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+                    buttonsStyling: false
+                    })
+
+                    swalWithBootstrapButtons.fire({
+                    title: 'Are you sure?',
+                    text: "Test will get Submitted",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Submitted!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        autoSubmit()
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'You can Continue',
+                        )
+                        FullScreenWindow()
+                    }
+                    })
+                    
+                }	
+            );
 
     </script>
 
@@ -374,57 +458,59 @@
             },4000)    
             
         }
-        
 
         function makeMeTwoDigits(n){
             return (n < 10 ? "0" : "") + n;
         }
         
-        {% if tracker_exists %}
-            let timeInSecs = parseInt({{tracker_time}})
-        {% else %}
-            let timeInSecs = parseInt({{test.examDuration}})
-        {% endif %}
+    
+            {% if tracker_exists %}
+                let timeInSecs = parseInt({{tracker_time}})
+            {% else %}
+                let timeInSecs = parseInt({{test.examDuration}})
+            {% endif %}
 
-        
-        //Time Calculation
-        var hours   = Math.floor(timeInSecs/ 3600);
-        timeInSecs%=3600;
-        var minutes = Math.floor(timeInSecs / 60);
-        
-        var seconds = timeInSecs % 60;
-        //seconds=59;
-        //--minutes;
-        var x = setInterval(function() {
 
+        function timerLogic(){        
+            //Time Calculation
+            var hours   = Math.floor(timeInSecs/ 3600);
+            timeInSecs%=3600;
+            var minutes = Math.floor(timeInSecs / 60);
             
-            document.getElementById("timer").innerHTML =makeMeTwoDigits(hours) + " : " +makeMeTwoDigits(minutes) + " : " +makeMeTwoDigits(seconds);
-            --seconds;
-            if (seconds < 0) {
-                if(minutes > 0){
-                    --minutes;   
-                }
-                seconds = 59;
-                if (minutes == 0) {
-                    if(hours > 0){
-                        --hours;
-                        minutes=59;
-                    } else{
-                        hours=0
-                        minutes=0;
+            var seconds = timeInSecs % 60;
+            //seconds=59;
+            //--minutes;
+            var x = setInterval(function() {
+
+                
+                document.getElementById("timer").innerHTML =makeMeTwoDigits(hours) + " : " +makeMeTwoDigits(minutes) + " : " +makeMeTwoDigits(seconds);
+                --seconds;
+                if (seconds < 0) {
+                    if(minutes > 0){
+                        --minutes;   
+                    }
+                    seconds = 59;
+                    if (minutes == 0) {
+                        if(hours > 0){
+                            --hours;
+                            minutes=59;
+                        } else{
+                            hours=0
+                            minutes=0;
+                        }
                     }
                 }
-            }
-           
-            if(hours == 0){
-                hours = 0;
-            }
-            if(hours==0 && minutes == 0 && seconds == 0){
-                document.getElementById("timer").innerHTML = "00:00:00";
-                clearInterval(x);
-                autoSubmit()
-            }
-        }, 1000);
+            
+                if(hours == 0){
+                    hours = 0;
+                }
+                if(hours==0 && minutes == 0 && seconds == 0){
+                    document.getElementById("timer").innerHTML = "00:00:00";
+                    clearInterval(x);
+                    autoSubmit()
+                }
+            }, 1000);
+        }
     </script>
 
 </body>
