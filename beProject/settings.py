@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -86,21 +87,13 @@ WSGI_APPLICATION = 'beProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'PGDB': {
-
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-        'NAME': 'be_online_assesment',
-
+        'NAME': 'be_project',
         'USER': 'postgres',
-
-        'PASSWORD': '1234',
-
+        'PASSWORD': '123456',
         'HOST': 'localhost',
-
     }
 }
 
@@ -178,3 +171,6 @@ STATIC_ROOT= os.path.join(BASE_DIR,'staticfiles')
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
 
 # www.sirvibharat354@gmail.com
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())

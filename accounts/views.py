@@ -22,16 +22,19 @@ def signUp(request):
         print("Arra")
         if request.POST.get('password') ==request.POST.get('confirmPassword'):
             try:
+                print('in try')
                 user = User.objects.get(email= request.POST.get('email'))
                 print("TRY WALA UDSER _______________",user)
                 print("Galat")
                 errormsg = 'Account Already Exist.'
                 return render(request,'accounts/index.html',{'signUpModel':'true', 'errormsg':errormsg})
             except:
+                print('in except')
                 user = User.objects.create_user(username=request.POST.get('email'), email=request.POST.get('email'),password=request.POST.get('password'), first_name=request.POST.get('firstName'), last_name=request.POST.get('lastName'))
                 phone_number = request.POST.get('phoneNumber')
                 user.is_active = False
                 user.save()
+                print(user)
                 print(request.POST.get('collegeName'),request.POST.get('branchSelect'), request.POST.get('yearSelect'))
                 actualUserRegister = UserRegistration(user=user, phone_number=phone_number,prn_number=request.POST.get('prn_number'),college_name = request.POST.get('collegeName'),branch = request.POST.get('branchSelect'),year = request.POST.get('yearSelect'))
                 actualUserRegister.save()
