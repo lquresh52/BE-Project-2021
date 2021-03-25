@@ -309,20 +309,20 @@
 
     </script> {% endcomment %}
     <script>
-        function FullScreenWindow() { 
+        // function FullScreenWindow() { 
         
-            // DOM element which needs to enter fullscreen mode
-            document.documentElement.requestFullscreen()
-            .then(function() {
-                // element has entered fullscreen mode successfully
-            })
-            .catch(function(error) {
-                // element could not enter fullscreen mode
-                // error message
-                console.log(error.message);
-            });
+        //     // DOM element which needs to enter fullscreen mode
+        //     document.documentElement.requestFullscreen()
+        //     .then(function() {
+        //         // element has entered fullscreen mode successfully
+        //     })
+        //     .catch(function(error) {
+        //         // element could not enter fullscreen mode
+        //         // error message
+        //         console.log(error.message);
+        //     });
 
-        }
+        // }
 
         function InfoPopUp(){
             let instruction = '1) Students fail to appear for exam within specified timings.\n2) Student do not appear for both the papers.\n3) Student appear for exam late / face lack of time.\n4) Student ignores instructions and rules.\n5) Student who do not keep backup of answers.\n6) Student submit short answers or short assignments (Plagiarism : Student copy answers from books, ebooks, external sources or internet etc.) or who receives less score as mentioned below.\n7) Student do not submit details from www.dlc.co.in/form/ifs-29.aspx after appearing for both the papers.\n8) Student face internet of power failure problems.\n9) Un-necessary communications / Arguments, or plagiarism against management decisions. '
@@ -339,7 +339,6 @@
             
             }).then((result) => {
             if (result.isConfirmed) {
-                FullScreenWindow()
                 timerLogic()
             }
             else{
@@ -355,7 +354,7 @@
     <script>
         $('#nextBtn').on('click',function(e){
             e.preventDefault();
-            var form = $(this).parents('form');
+            var form = $('#formID');
             Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -373,52 +372,51 @@
                 )
                 window.setTimeout(function submitForm(){
                         form.submit();
-                },3000)
-                window.close()
+                },2000)
             }
             })
         });
         
-        document.addEventListener('fullscreenchange', function() {
+        // document.addEventListener('fullscreenchange', function() {
             
-                var full_screen_element = document.fullscreenElement;
-                if(full_screen_element !== null)
-                    console.log('Page has entered fullscreen mode');
-                else
-                    console.log('Page has exited fullscreen mode');
-                    const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success',
-                        cancelButton: 'btn btn-danger'
-                    },
-                    buttonsStyling: false
-                    })
+        //         var full_screen_element = document.fullscreenElement;
+        //         if(full_screen_element !== null)
+        //             console.log('Page has entered fullscreen mode');
+        //         else
+        //             console.log('Page has exited fullscreen mode');
+        //             const swalWithBootstrapButtons = Swal.mixin({
+        //             customClass: {
+        //                 confirmButton: 'btn btn-success',
+        //                 cancelButton: 'btn btn-danger'
+        //             },
+        //             buttonsStyling: false
+        //             })
 
-                    swalWithBootstrapButtons.fire({
-                    title: 'Are you sure?',
-                    text: "Test will get Submitted",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, Submitted!',
-                    cancelButtonText: 'No, cancel!',
-                    reverseButtons: true
-                    }).then((result) => {
-                    if (result.isConfirmed) {
-                        autoSubmit()
-                    } else if (
-                        /* Read more about handling dismissals below */
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) {
-                        swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        'You can Continue',
-                        )
-                        FullScreenWindow()
-                    }
-                    })
+        //             swalWithBootstrapButtons.fire({
+        //             title: 'Are you sure?',
+        //             text: "Test will get Submitted",
+        //             icon: 'warning',
+        //             showCancelButton: true,
+        //             confirmButtonText: 'Yes, Submitted!',
+        //             cancelButtonText: 'No, cancel!',
+        //             reverseButtons: true
+        //             }).then((result) => {
+        //             if (result.isConfirmed) {
+        //                 autoSubmit()
+        //             } else if (
+        //                 /* Read more about handling dismissals below */
+        //                 result.dismiss === Swal.DismissReason.cancel
+        //             ) {
+        //                 swalWithBootstrapButtons.fire(
+        //                 'Cancelled',
+        //                 'You can Continue',
+        //                 )
+        //                 FullScreenWindow()
+        //             }
+        //             })
                     
-                }	
-            );
+        //         }	
+        //     );
 
     </script>
 

@@ -220,13 +220,15 @@
         <!-- Contents -->
         <div class="contents">
             <div class="row col-12 myRow m-0">
+                {% if tests|length > 0 %}
+
                 {% for test in tests %}
                     <div class="col-12 col-sm-10 col-md-4 col-xl-3 ml-auto mr-auto">
                         <div class="card myCard">
-                            <div class="card-header myCardHeader">
-                            {% comment %} <p class="card-title mb-0 myCardTitle">Starts In
-                            </p>
-                            <p class="mb-0 myCardCounter">10:40:10</p> {% endcomment %}
+                            <div class="card-header myCardHeader pt-0 pb-0">
+                                <span class="material-icons ml-auto threeIcon" >
+                                    more_horiz
+                                    </span>
                             </div>
                             <div class="card-body">
                                 <form id="formID-{{forloop.counter}}" method="post">
@@ -289,6 +291,9 @@
                                 <div class="btn-container d-flex justify-content-center p-2 mt-2">
                                     <input type="text" name="testIdHidden" value={{test.id}} hidden>
                                     <input id="cardBtn-{{forloop.counter}}" onclick="testDeletePopup(event,'cardBtn-{{forloop.counter}}','{{forloop.counter}}')" type="button" value="Delete" class="btn btn-secondary col-5 ml-auto mr-auto d-flex align-items-center justify-content-center text-align-center cardBtn">
+
+                                    <a href="{% url 'view_result' test.id %}">View Result</a>
+
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-12">
@@ -300,10 +305,39 @@
                         </div>
                     </div>
                 {% endfor %} 
+                {% else %}
+                     <!-- Animated Illustration -->
+                     <div class="ml-auto mr-auto" style="width:50%;">
+                        <div id="lottie" class="ml-auto mr-auto" ></div>
+                        <p class="lead text-center" style="transform: translateY(-80px);">
+                            No Test Created Yet.
+                        </p>
+                    </div>
+                {% endif %}
             </div>
         </div>
+
         
-        </div>
+     <!-- Lottie Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"
+    integrity="sha512-m0RQU4SBx0p/bLwRiI4fJBGRafVLZ4s86wRe1+OAx5EXbcWiS/X1jvYdJQRD8jOoIVl+WTyVeMawUWVCh1O8+Q=="
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.4/lottie.min.js"
+    integrity="sha512-m0RQU4SBx0p/bLwRiI4fJBGRafVLZ4s86wRe1+OAx5EXbcWiS/X1jvYdJQRD8jOoIVl+WTyVeMawUWVCh1O8+Q=="
+    crossorigin="anonymous"></script>
+
+
+    <script>
+        var animation = bodymovin.loadAnimation({
+            container: document.getElementById('lottie'), // Required
+            path: "/static/js/nodata.json", // Required
+            renderer: 'svg', // Required
+            loop: true, // Optional
+            autoplay: true, // Optional
+            name: "Hello World", // Name for future reference. Optional.
+        });
+
+    </script>
 
     <!-- Auto Submit Script -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -355,7 +389,10 @@
             'Your file has been deleted.',
             'success'
             )
-            form.submit()
+            window.setTimeout(function submitForm(){
+                        form.submit();
+                },2000)
+                window.close()
         }
         })
     }

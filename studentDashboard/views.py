@@ -11,7 +11,7 @@ import ast
 import random
 import json
 import nltk
-import gensim
+# import gensim
 import numpy as np
 
 from nltk.tokenize import word_tokenize, sent_tokenize
@@ -89,40 +89,39 @@ def studentTest(request,subject_id):
                     score += 1
             else:
                 print(str(data[i]['fields']['descriptive_answer']))
-                gen_docs = sent_tokenize(str(data[i]['fields']['descriptive_answer']))
-                gen_docs = [ [w.lower() for w in word_tokenize(text)] for text in gen_docs ]
+        #         gen_docs = sent_tokenize(str(data[i]['fields']['descriptive_answer']))
+        #         gen_docs = [ [w.lower() for w in word_tokenize(text)] for text in gen_docs ]
 
-                dictionary = gensim.corpora.Dictionary(gen_docs)
-                corpus = [dictionary.doc2bow(gen_doc) for gen_doc in gen_docs ]
-                tf_idf = gensim.models.TfidfModel(corpus)
-                sims = gensim.similarities.Similarity('workdir/', tf_idf[corpus], num_features=len(dictionary))
+        #         dictionary = gensim.corpora.Dictionary(gen_docs)
+        #         corpus = [dictionary.doc2bow(gen_doc) for gen_doc in gen_docs ]
+        #         tf_idf = gensim.models.TfidfModel(corpus)
+        #         sims = gensim.similarities.Similarity('workdir/', tf_idf[corpus], num_features=len(dictionary))
 
-                file2_docs = sent_tokenize(selected_op[i])
+        #         file2_docs = sent_tokenize(selected_op[i])
 
-                for line in file2_docs:
-                    query_doc = [w.lower() for w in word_tokenize(line)]
-                    query_doc_bow = dictionary.doc2bow(query_doc)
-                    query_doc_tf_idf = tf_idf[query_doc_bow]
-                    print('Comparing Result:', sims[query_doc_tf_idf]) 
-                    sum_of_sims =(np.sum(sims[query_doc_tf_idf], dtype=np.float32))
-                    avg = sum_of_sims / len(gen_docs)
-                    print(f'avg: {sum_of_sims / len(gen_docs)}')
-                    avg_sims.append(avg)
+        #         for line in file2_docs:
+        #             query_doc = [w.lower() for w in word_tokenize(line)]
+        #             query_doc_bow = dictionary.doc2bow(query_doc)
+        #             query_doc_tf_idf = tf_idf[query_doc_bow]
+        #             print('Comparing Result:', sims[query_doc_tf_idf]) 
+        #             sum_of_sims =(np.sum(sims[query_doc_tf_idf], dtype=np.float32))
+        #             avg = sum_of_sims / len(gen_docs)
+        #             print(f'avg: {sum_of_sims / len(gen_docs)}')
+        #             avg_sims.append(avg)
 
-                total_avg = np.sum(avg_sims, dtype=np.float)
-                print(total_avg)
-                percentage_of_similarity = round(float(total_avg) * 100)
-                if percentage_of_similarity >= 100:
-                    percentage_of_similarity = 100
-                if percentage_of_similarity >= 50:
-                    score += 1 
-                print(percentage_of_similarity, score)
+        #         total_avg = np.sum(avg_sims, dtype=np.float)
+        #         print(total_avg)
+        #         percentage_of_similarity = round(float(total_avg) * 100)
+        #         if percentage_of_similarity >= 100:
+        #             percentage_of_similarity = 100
+        #         if percentage_of_similarity >= 50:
+        #             score += 1 
+        #         print(percentage_of_similarity, score)
 
               
             
-            
 
-        print(score)
+        # print(score)
 
         #print('------ history data ------')
         #print(history_data)

@@ -1,0 +1,270 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+:root{
+    --mainBackgroundColor: #edf5e1;
+    --lightGreen: #8ce7af;
+    --mediumGreen: #5cdb95;
+    --darkGreen: #379683;
+    --darkBlue: #05386b;
+}
+
+/*----------------  NAVBAR  ------------------------*/
+.myNavbar{
+    z-index:200; 
+    background-color: #05386b !important;
+}
+
+::selection{
+    background: #4158d0;
+    color: #fff;
+}
+
+.sidebar{
+    height: 100vh;
+    width: 5vw;
+    position: fixed;
+    left: 0;
+    background-color: var(--mainBackgroundColor);
+    z-index: 7;
+}
+.myIcon{
+    color: var(--mediumGreen);
+    font-size: 48px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+.nav-icons{
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+}
+.selected{
+    color: var(--darkBlue);
+}
+.parentDiv{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.mytooltip{
+    position: absolute;
+    top: 0px;
+    left: 55px;
+    background-color: var(--darkBlue);
+    color: white;
+    width: 100px;
+    opacity: 0;
+    pointer-events: none;
+    height: 50px;
+    text-align: center;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 1px;
+    border-radius: 10px;
+    transform: translateX(-50px);
+    transition: .4s ease;
+    z-index: 15;
+}
+.parentDiv:hover .mytooltip{
+    transform: translateX(10px);
+    opacity: .8;
+}
+a{
+    text-decoration: none !important;
+}
+
+
+.mainscreen{
+    width: 100% !important;
+}
+
+/*----------------  CONTENTS ------------------------*/ 
+.contents{
+    padding-top: 5%;
+    padding-left: 5vw;
+}
+
+.myRow{
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: start;
+}
+
+/*---------------- HAMBURGER ------------------------*/ 
+.ham {
+    cursor: pointer;
+    color: white;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-transition: -webkit-transform 300ms;
+    transition: -webkit-transform 300ms;
+    transition: transform 300ms;
+    transition: transform 300ms, -webkit-transform 300ms;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    z-index: 10;
+}
+  
+.hamRotate.active {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+  
+.hamRotate180.active {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+  
+.line {
+    fill: none;
+    -webkit-transition: stroke-dasharray 500ms, stroke-dashoffset 500ms;
+    transition: stroke-dasharray 500ms, stroke-dashoffset 500ms;
+    stroke: white;
+    stroke-width: 6;
+    stroke-linecap: round;
+}
+  
+.ham6 .top {
+    stroke-dasharray: 40 172;
+}
+  
+.ham6 .middle {
+    stroke-dasharray: 40 111;
+}
+  
+.ham6 .bottom {
+    stroke-dasharray: 40 172;
+}
+  
+.ham6.active .top {
+    stroke-dashoffset: -132px;
+}
+  
+.ham6.active .middle {
+    stroke-dashoffset: -71px;
+}
+  
+.ham6.active .bottom {
+    stroke-dashoffset: -132px;
+}
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 35px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 100%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+    background-color: var(--darkGreen);
+    color: #ffffff;
+    /* text-align: left; */
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    text-align: left;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid var(--darkGreen);
+}
+
+
+/*----------------  Mobile View ------------------------*/ 
+@media (max-width:991px){
+    .sidebar{
+        height: 7vh;
+        width: 100vw;
+        bottom: 0px;
+        border-radius: 13px 13px 0px 0px;
+    }
+    .myIcon{
+        font-size: 35px;
+        width: 100%;
+    }
+    .nav-icons{
+        margin-top: 0vh;
+        flex-direction: row;
+    }
+    .mytooltip{
+        display: none;
+    }
+
+    .contents{
+        padding-bottom: 7vh;
+        padding-top: 7vh;
+        padding-left: 0vw;
+    }
+
+    /* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	td:before { 
+		/* Now like a table header */
+		/* Top/left values mimic padding */
+		width: 50%; 
+		padding-right: 10px; 
+        white-space: nowrap;
+        float: left;
+	}
+	
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "Subject"; }
+	td:nth-of-type(2):before { content: "Type"; }
+	td:nth-of-type(3):before { content: "Duration"; }
+	td:nth-of-type(4):before { content: "Total Questions"; }
+	td:nth-of-type(5):before { content: "Marks"; }
+	td:nth-of-type(6):before { content: "Date"; }
+    td:nth-of-type(7):before { content: "Result"; }
+
+    td{
+        font-weight:500;
+    }
+}
