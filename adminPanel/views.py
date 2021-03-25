@@ -1,6 +1,13 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.decorators import login_required
 from . models import Test,Question
+from django.contrib.auth.models import User
+from studentDashboard.models import Exam_History
+from studentDashboard.views import result_page
+from django.core import serializers
+from adminPanel.serializers import QuestionSerializer , TestSerializer
+
+import json
 
 question_increment = 0
 
@@ -130,3 +137,10 @@ def questionList(request,quiz_id,totalQuestions,curr_q_no):
         except:
             print("Error")
         return render(request,'adminPanel/newquestion.html',{'question_increment':question_increment})
+
+@login_required
+def view_result(request,tid):
+    print(tid)
+    attempted_exam = Exam_History.objects.filter(test_id = tid)
+    print(len(attempted_exam))
+    return render(request,'adminPanel/view_result.html', {'exam_history': attempted_exam})

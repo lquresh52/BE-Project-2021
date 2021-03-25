@@ -33,7 +33,7 @@ def signUp(request):
                 user.is_active = False
                 user.save()
                 print(request.POST.get('collegeName'),request.POST.get('branchSelect'), request.POST.get('yearSelect'))
-                actualUserRegister = UserRegistration(user=user, phone_number=phone_number,college_name = request.POST.get('collegeName'),branch = request.POST.get('branchSelect'),year = request.POST.get('yearSelect'))
+                actualUserRegister = UserRegistration(user=user, phone_number=phone_number,prn_number=request.POST.get('prn_number'),college_name = request.POST.get('collegeName'),branch = request.POST.get('branchSelect'),year = request.POST.get('yearSelect'))
                 actualUserRegister.save()
                 print("Registered")
                 current_site = get_current_site(request)

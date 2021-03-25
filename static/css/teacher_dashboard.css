@@ -457,7 +457,17 @@ a{
     stroke-dashoffset: -132px;
 }
 
+/* threeIcon */
+.threeIcon{
+    font-size: 35px;
+    color: white;
+    cursor: pointer;
+    transition: .5s;
+}
 
+.threeIcon:hover{
+    color: black;
+}
 /*----------------  Mobile View ------------------------*/ 
 @media (max-width:991px){
     .sidebar{
