@@ -20,6 +20,9 @@
     <!-- jQuery 1.7.2+ or Zepto.js 1.0+ -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/view_result.css' %}">
+
+    <!-- Download Button -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
 </head>
 
@@ -83,28 +86,40 @@
         <div class="contents">
             <div class="row col-12 myRow m-0">
                 <div class="col-md-10 col-sm-12  ml-auto mr-auto">
-                    <h1 class="text-center" style="margin-top: 20px;">Result Page</h1>
+                    <div>
+                        <h1 class="text-center" style="margin-top: 20px;">Result Page</h1>
+                        <div class="d-flex justify-content-end mb-3">
+                            <button id="exportButton" class="btn btn-primary"><i class="fa fa-download"></i> Download Excel</button>
+                        </div>
+                    </div>
                     {% if exam_history|length > 0 %}
                     <table class="table"> 
                             <thead>
                                 <tr>
+                                    <th scope="col">SrNo.</th>
                                     <th scope="col">Student Name</th>
                                     <th scope="col">PRN Number</th>
                                     <th scope="col">Subject Name</th>
+                                    <th scope="col">Total Questions</th>
                                     <th scope="col">Right Answer</th>
                                     <th scope="col">Wrong Answer</th>
-                                    <th scope="col">Score</th>
+                                    <th scope="col">Marks</th>
+                                    <th scope="col">Out of</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     {% for test in exam_history %}
                                     <tr>
-                                        <th scope="row">{{ test.user.first_name }}  {{ test.user.last_name }}</th>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td>{{ test.user.first_name }}  {{ test.user.last_name }}</td>
                                         <td>{{ test.user.userregistration.prn_number }}</td>
                                         <td>{{ test.test_id.subjectName }}</td>
+                                        <td>{{ test.no_of_que }}</td>
                                         <td>{{ test.right_ans }}</td>
                                         <td>{{ test.wrong }}</td>
                                         <td>{{ test.score }}</td>
+                                        <td>{{ test.test_id.totalMarks }}</td>
+                                        
                                     </tr>
                                     {% endfor %}
                                     
@@ -121,6 +136,7 @@
                     </p>
                     {% endif %}
                 </div>
+                
             </div>
         </div>
 
@@ -135,6 +151,57 @@
     integrity="sha512-m0RQU4SBx0p/bLwRiI4fJBGRafVLZ4s86wRe1+OAx5EXbcWiS/X1jvYdJQRD8jOoIVl+WTyVeMawUWVCh1O8+Q=="
     crossorigin="anonymous"></script>
 
+
+    <script>
+        function download_csv(csv, filename) {
+        var csvFile;
+        var downloadLink;
+
+        // CSV FILE
+        csvFile = new Blob([csv], {type: "text/csv"});
+
+        // Download link
+        downloadLink = document.createElement("a");
+
+        // File name
+        downloadLink.download = filename;
+
+        // We have to create a link to the file
+        downloadLink.href = window.URL.createObjectURL(csvFile);
+
+        // Make sure that the link is not displayed
+        downloadLink.style.display = "none";
+
+        // Add the link to your DOM
+        document.body.appendChild(downloadLink);
+
+        // Lanzamos
+        downloadLink.click();
+    }
+
+    function export_table_to_csv(html, filename) {
+        var csv = [];
+        var rows = document.querySelectorAll("table tr");
+        
+        for (var i = 0; i < rows.length; i++) {
+            var row = [], cols = rows[i].querySelectorAll("td, th");
+            
+            for (var j = 0; j < cols.length; j++) 
+                row.push(cols[j].innerText);
+            
+            csv.push(row.join(","));		
+        }
+
+        // Download CSV
+        download_csv(csv.join("\n"), filename);
+    }
+    
+    document.getElementById("exportButton").addEventListener("click", function () {
+        var html = document.getElementsByClassName("table").outerHTML;
+        export_table_to_csv(html,"Result.csv");
+    });
+
+    </script>
 
     <script>
         var animation = bodymovin.loadAnimation({

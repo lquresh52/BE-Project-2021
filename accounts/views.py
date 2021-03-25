@@ -14,6 +14,7 @@ from django.contrib import messages
 from studentDashboard.views import dashboard
 from adminPanel.views import teacherHome,questionForm,questionList
 
+import time
 def index(request):
     return render(request, 'accounts/index.html')
 
@@ -34,6 +35,7 @@ def signUp(request):
                 phone_number = request.POST.get('phoneNumber')
                 user.is_active = False
                 user.save()
+                
                 print(user)
                 print(request.POST.get('collegeName'),request.POST.get('branchSelect'), request.POST.get('yearSelect'))
                 actualUserRegister = UserRegistration(user=user, phone_number=phone_number,prn_number=request.POST.get('prn_number'),college_name = request.POST.get('collegeName'),branch = request.POST.get('branchSelect'),year = request.POST.get('yearSelect'))
