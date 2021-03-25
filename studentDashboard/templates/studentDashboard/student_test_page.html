@@ -325,7 +325,7 @@
         }
 
         function InfoPopUp(){
-            let instruction = '1) Students fail to appear for exam within specified timings.\n2) Student do not appear for both the papers.\n3) Student appear for exam late / face lack of time.\n4) Student ignores instructions and rules.\n5) Student who do not keep backup of answers.\n6) Student submit short answers or short assignments (Plagiarism : Student copy answers from books, ebooks, external sources or internet etc.) or who receives less score as mentioned below.\n7) Student do not submit details from www.dlc.co.in/form/ifs-29.aspx after appearing for both the papers.\n8) Student face internet of power failure problems.\n9) Un-necessary communications / Arguments, or plagiarism against management decisions. '
+            let instruction = '<p>1) Students fail to appear for exam within specified timings.</p><p>2) Student do not appear for both the papers.</p><p>3) Student appear for exam late / face lack of time.</p><p>4) Student ignores instructions and rules.</p><p>5) Student who do not keep backup of answers.</p><p>6) Student submit short answers or short assignments (Plagiarism : Student copy answers from books, ebooks, external sources or internet etc.) or who receives less score as mentioned below.</p><p>8) Student face internet of power failure problems.</p><p>9) Un-necessary communications / Arguments, or plagiarism against management decisions.</p>'
             Swal.fire({
             title: '<strong>Test Instruction</strong>',
             icon: 'info',
@@ -382,9 +382,11 @@
         document.addEventListener('fullscreenchange', function() {
             
                 var full_screen_element = document.fullscreenElement;
-                if(full_screen_element !== null)
+                if(full_screen_element !== null){
                     console.log('Page has entered fullscreen mode');
-                else
+                }
+                else{
+
                     console.log('Page has exited fullscreen mode');
                     const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
@@ -399,7 +401,7 @@
                     text: "Test will get Submitted",
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: 'Yes, Submitted!',
+                    confirmButtonText: 'Yes, Submit!',
                     cancelButtonText: 'No, cancel!',
                     reverseButtons: true
                     }).then((result) => {
@@ -416,7 +418,7 @@
                         FullScreenWindow()
                     }
                     })
-                    
+                }
                 }	
             );
 
