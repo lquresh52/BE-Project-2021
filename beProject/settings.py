@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth.account',  
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google', 
+    'import_export',
     'studentDashboard',
     'adminPanel',
     'rest_framework',
@@ -174,3 +175,7 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+#80 MB = 31457280 Bytes B
+DATA_UPLOAD_MAX_MEMORY_SIZE = 83886080
+DATA_UPLOAD_MAX_NUMBER_FIELDS = None

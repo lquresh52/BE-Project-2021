@@ -6,14 +6,13 @@ from studentDashboard.models import Exam_History
 from studentDashboard.views import result_page
 from django.core import serializers
 from adminPanel.serializers import QuestionSerializer , TestSerializer
-
-import json
-
+from tablib import Dataset
+import json, csv, io
 question_increment = 0
 
 @login_required(login_url='/login/')
 def teacherHome(request):
-    tests = Test.objects.filter(quiz_completed=True)
+    tests = Test.objects.filter(quiz_completed=True, user=request.user)
     print(tests)
 
     if request.method == 'POST':
@@ -37,22 +36,67 @@ def questionForm(request):
         dateTime = request.POST.get('dateTime')
         test_end_hours = request.POST.get('enddateTime') 
         examDuration = int(request.POST.get('examDuration'))*60
-       # negativeMarksInput = request.POST.get('negativeMarksInput')
-        #print("Neg mark  ",negativeMarksInput)
-        quiz = Test(user=user,subjectName=subjectName,branch_field=branch,year_field=year,totalQuestions=totalQuestions,totalMarks=totalMarks,dateTime=dateTime,test_end_hours=test_end_hours,examDuration=examDuration)
-      #  print("Neg mark 2 ",negativeMarksInput)
-        quiz.save()
-        # tp = Test.objects.get(pk=quiz.pk)
-        print('*********************************************')
-        print(quiz)
-        print('----------------------------------------')
-        print(quiz.pk)
-        print('///////////  ',quiz.totalQuestions)
 
-        # return redirect(questionList,quiz=quiz,subjectName=subjectName,totalQuestions=totalQuestions,totalMarks=totalMarks,dateTime=dateTime,examDuration=examDuration,negativeMarksInput=0 if negativeMarksInput==''else negativeMarksInput)
-        return redirect(questionList,quiz_id=quiz.pk,totalQuestions=quiz.totalQuestions,curr_q_no=1)
+        quiz_create_type = request.POST.get('quiz_create_type')
+
+        if quiz_create_type == 'manual':
+            quiz = Test(user=user,subjectName=subjectName,branch_field=branch,year_field=year,totalQuestions=totalQuestions,totalMarks=totalMarks,dateTime=dateTime,test_end_hours=test_end_hours,examDuration=examDuration)
+            quiz.save()
+            return redirect(questionList,quiz_id=quiz.pk,totalQuestions=quiz.totalQuestions,curr_q_no=1)
+        else:
+            # excel
+            
+            # new_data = request.FILES['file']
+            csv_file = request.FILES['file']
+            # print(csv_file.path)
+
+            
+            # dataset = Dataset()
+            if not csv_file.name.endswith('.csv'):
+                msg = """Wrong format\n Only ".csv" is valid!!!"""
+                return render(request,'adminPanel/teacher_dashboard.html', {'errormsg':msg, 'show_test_createquiz':True})
+            
+
+            data_set = csv_file.read().decode('UTF-8')
+            io_string = io.StringIO(data_set)
+            next(io_string)
+            print(data_set)
+            print(csv.reader(io_string, delimiter=","))
+            
+            length_of_csv = 0 
+            for i, _ in enumerate(csv.reader(io_string, delimiter=',', quotechar="|")):
+                length_of_csv = i+1
+            print(length_of_csv,totalQuestions)
+            if length_of_csv != int(totalQuestions):
+                msg = """No of question in excel file are not same as entered on earlier page they must be only : """+str(totalQuestions)+""" questions, but we got """+str(length_of_csv)+""" please check your excel file."""
+                return render(request,'adminPanel/teacher_dashboard.html', {'errormsg':msg, 'show_test_createquiz':True})        
+
+            quiz = Test(user=user,subjectName=subjectName,branch_field=branch,year_field=year,totalQuestions=totalQuestions,totalMarks=totalMarks,dateTime=dateTime,test_end_hours=test_end_hours,examDuration=examDuration, quiz_completed=True)
+            quiz.save()      
+
+            curr_q_no=1
+            for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+                print('-----------')
+                print(column)
+                print("++++++++++++")
+                if column[7] == 'no' or column[7] == 'NO' or column[7] == 'No':
+                    if column[6] == '1' or column[6] == '2' or column[6] == '3' or column[6] == '4':
+                        value = Question(subject=quiz, question_number=curr_q_no,question=column[1],option1 = column[2], option2 = column[3], option3 = column[4], option4 = column[5], answer=int(column[6]),is_objective=True,descriptive_answer=None)
+                        value.save()
+                    else:
+                        msg = """Answer can only contain number i.e " 1 or 2 or 3 or 4 " . Any thing other than that is not allowed."""
+                        return render(request,'adminPanel/teacher_dashboard.html', {'errormsg':msg, 'show_test_createquiz':True})        
+                        break
+                else:
+                    value = Question(subject=quiz, question_number=curr_q_no,question=column[1],option1 = column[2], option2 = column[3], option3 = column[4], option4 = column[5], answer=None,is_objective=False,descriptive_answer=column[8])
+                    value.save()
+                curr_q_no += 1
+
+            print("finfishhhhhhh")
+            return redirect('teacherHome')
+
     else:
-        return render(request,'adminPanel/newquestion.html')
+        return render(request,'adminPanel/teacher_dashboard.html')
 
 # def questionList(request,quiz,subjectName,totalQuestions,totalMarks,dateTime,examDuration,negativeMarksInput):
     # print(subjectName)
