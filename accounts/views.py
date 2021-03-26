@@ -185,4 +185,35 @@ def password_reset_completed(request, uidb64):
         user.save()
         print('Pasword Saved')    
     return HttpResponse('Completed')
+
+
+
+def teacher_login(request):
+    if request.method == 'POST':
+        if request.POST.get('password1') ==request.POST.get('password2'):
+            try:
+                print('in try')
+                user = User.objects.get(email= request.POST.get('email'))
+                print("TRY WALA UDSER _______________",user)
+                print("Galat")
+                errormsg = 'Account Already Exist.'
+                return render(request,'TeacherSignUp/teacherregister.html',{'errormsg':errormsg})
+            except:
+                email = request.POST.get('email')
+                fname = request.POST.get('fname')
+                lname = request.POST.get('lname')
+                password = request.POST.get('password1')
+                phone_number = request.POST.get('phone_number')
+
+                user = User.objects.create_user(username=email, email=email,password=password, first_name=fname, last_name=lname)
+                user.save()
+                actualUserRegister = UserRegistration(user=user, phone_number=phone_number,prn_number=None,college_name = request.POST.get('collegeName'),branch = None,year = None, isTeacher=True)
+                actualUserRegister.save()
+                return redirect('index')
+        else:
+            errormsg = 'Password and Confirm Password does not match.'
+            return render(request,'TeacherSignUp/teacherregister.html',{'errormsg':errormsg}) 
+            
+    else:
+        return render(request,'TeacherSignUp/teacherregister.html')
                

@@ -262,7 +262,7 @@
 
 
     <!-- This script is to disable the inspect element -->
-    {% comment %}
+    
     <script>
         $(document).bind("contextmenu", function (e) {
             e.preventDefault();
@@ -307,7 +307,79 @@
             }
         }
 
-    </script> {% endcomment %}
+    </script>
+
+    <script>
+        // Handle page visibility change events
+        function handleVisibilityChange() {
+            if (document.visibilityState == "hidden") {
+                const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+                })
+
+                swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "Test will get Submitted",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Submit!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    autoSubmit()
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'You can Continue',
+                    )
+                    FullScreenWindow()
+                }
+                })
+            } else {
+                const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+                })
+
+                swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "Test will get Submitted",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Submit!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    autoSubmit()
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'You can Continue',
+                    )
+                    FullScreenWindow()
+                }
+                })
+            }
+        }
+
+        document.addEventListener('visibilitychange', handleVisibilityChange, false);
+    </script>
+
     <script>
         function FullScreenWindow() { 
         
